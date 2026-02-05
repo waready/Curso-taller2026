@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>Construcción de Ítems Modelo por Competencias y herramientas de evaluación en procesos de preparación pre
+        universitaria</title>
+    <link rel="icon" type="image/x-icon"
+        src="{{ asset('assets/images/events/curso-taller2025/img/logo-cepreuna2025.png') }}" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet"
+        type="text/css" />
+</head>
+
+<body class="font-montserrat overflow-x-hidden">
+    <nav class="bg-white border-gray-200 fixed bg-gray-900 w-full z-50 ">
+        <div class="container flex flex-wrap items-center justify-between mx-auto p-4">
+            <a href="#page-top" class="flex items-center space-x-3 rtl:space-x-reverse">
+                <img src="{{asset('assets/images/events/curso-taller2025/img/logo-cepreuna2025.png')}} "
+                    class="h-[50px]" alt="Cepreuna Logo 2025" />
+                <span class="self-center text-2xl font-semibold whitespace-nowrap text-black">Curso Taller</span>
+            </a>
+
+            <button id="menu-toggle" type="button"
+                class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 text-gray-400 bg-gray-700 focus:ring-gray-600">
+                <span class="sr-only">Open main menu</span>
+                <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                    viewBox="0 0 17 14">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M1 1h15M1 7h15M1 13h15" />
+                </svg>
+            </button>
+
+            <div class="hidden w-full md:block md:w-auto backdrop-blur-none  " id="navbar-default">
+                <ul
+                    class="font-medium flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0 md:bg-white bg-gray-800 md:bg-gray-900 border-gray-700">
+                    <li>
+                        <a href="#especialistas"
+                            class="block py-2 px-3 text-gray-900 rounded-sm bg-gray-100 md:bg-transparent md:border-0 md:text-blue-700 md:p-0 text-white md:text-blue-500 bg-gray-700 text-white md:bg-transparent"
+                            aria-current="page">Ponentes</a>
+                    </li>
+                    <li>
+                        <a href="#about"
+                            class="block py-2 px-3 text-gray-900 rounded-sm bg-gray-100 md:bg-transparent md:border-0 md:text-blue-700 md:p-0 text-white md:text-blue-500 bg-gray-700 text-white md:bg-transparent">Acerca
+                            del curso</a>
+                    </li>
+                    <li>
+                        <a href="#inscribirse"
+                            class="block py-2 px-3 text-gray-900 rounded-sm bg-gray-100 md:bg-transparent md:border-0 md:text-blue-700 md:p-0 text-white md:text-blue-500 bg-gray-700 text-white md:bg-transparent">Inscribirse</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <header id="page-top"
+        class="bg-gradient-to-b from-[#00A9C8] to-[#00152C] text-white h-screen flex flex-col justify-center items-center">
+        <div class="grid grid-cols-2 mt-4">
+            <div class="flex items-center justify-center align-center md:max-w-[300px]">
+                <img src="{{ asset('assets/images/events/curso-taller2025/img/Logo_UNAP.png') }}" alt="Logo UNAP"
+                    class=" md:w-32 md:h-32" />
+                <span class="text-xs md:text-xl font-bold text-center">Universidad Nacional del Altiplano</span>
+            </div>
+            <div class="flex items-center justify-center align-center md:max-w-[300px]">
+                <img src="{{ asset('assets/images/events/curso-taller2025/img/logo-white-cepre2025.png') }}"
+                    alt="Logo CEPREUNA white" class=" md:w-[118px] md:h-auto" />
+                <span class="text-xs md:text-xl font-bold text-center">Centro de Estudios Preuniversitario</span>
+            </div>
+        </div>
+        <h1 class="text-4xl font-bold uppercase text-center mt-4">
+            <p>CURSO TALLER:</p>
+            <p>DESARROLLO COGNITIVO</p>
+        </h1>
+        <h2 class="text-2xl mt-4 text-center">
+            "Construcción de Ítems Modelo por Competencias y herramientas de evaluación en procesos de preparación pre
+            universitaria"
+        </h2>
+    </header>
+    <section id="especialistas" class="py-20">
+        <div class="container mx-auto px-4 relative">
+            <h2 class="text-3xl font-bold text-center uppercase text-gray-800 mb-8 ">
+                Ponentes
+            </h2>
+            <div class="flex justify-center items-center mb-8">
+                <div class="w-16 h-1 bg-black"></div>
+                <i class="fas fa-users text-black mx-4 "></i>
+                <div class="w-16 h-1 bg-black"></div>
+            </div>
+            <div class="flex flex-wrap justify-center">
+                <div
+                    class="card bg-white border-4 border-white rounded-lg shadow-lg m-4 overflow-hidden w-72 text-center transition-transform duration-200 ease-in-out scale-105 shadow-2xl relative group">
+                    <div class="relative w-full h-72">
+                        <img src="{{ asset('assets/images/events/curso-taller2025/img/especialistas/processed_image_4.png') }}"
+                            alt="Renato Benazic"
+                            class="absolute inset-0 w-full h-full object-cover z-10 transition-opacity duration-500 ease-in-out group-opacity-90">
+                    </div>
+
+                    <div class="card-content p-4 relative z-20">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-2">Renato Mario Benazic Tomé</h3>
+                        <p class="text-sm text-gray-600 leading-relaxed">
+                            Doctor en Matemática por el IMPA de Brasil y Magíster en Matemática Pura por la UNMSM.
+                            Profesor principal en la UNMSM y docente en la USIL desde 2010. Su investigación abarca
+                            ecuaciones diferenciales y modelos matemáticos aplicados a la economía.
+                        </p>
+                    </div>
+                </div>
+
+                <div
+                    class="card bg-white border-4 border-white rounded-lg shadow-lg m-4 overflow-hidden w-72 text-center transition-transform duration-200 ease-in-out scale-105 shadow-2xl relative group">
+                    <div class="relative w-full h-72">
+                        <img src="{{ asset('assets/images/events/curso-taller2025/img/especialistas/processed_image_2.png') }}"
+                            alt="Guissela Joanne Gonzales Fernández"
+                            class="absolute inset-0 w-full h-full object-cover z-10 transition-opacity duration-500 ease-in-out group-opacity-90">
+                    </div>
+
+                    <div class="card-content p-4 relative z-20">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-2">Guissela Joanne Gonzales Fernández</h3>
+                        <p class="text-sm text-gray-600 leading-relaxed">
+                            Magíster en Literatura Peruana y Latinoamericana por la UNMSM. Profesora asociada en la
+                            UNMSM y exdirectora de la Escuela de Bibliotecología. Su investigación se centra en estudios
+                            andinos e interculturalidad.
+                        </p>
+                    </div>
+                </div>
+
+                <div
+                    class="card bg-white border-4 border-white rounded-lg shadow-lg m-4 overflow-hidden w-72 text-center transition-transform duration-200 ease-in-out scale-105 shadow-2xl relative group">
+                    <div class="relative w-full h-72">
+                        <img src="{{ asset('assets/images/events/curso-taller2025/img/especialistas/processed_image_1.png') }}"
+                            alt="David Víctor Velásquez Silva"
+                            class="absolute inset-0 w-full h-full object-cover z-10 transition-opacity duration-500 ease-in-out group-opacity-90">
+                    </div>
+
+                    <div class="card-content p-4 relative z-20">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-2">David Víctor Velásquez Silva</h3>
+                        <p class="text-sm text-gray-600 leading-relaxed">
+                            Magíster y Licenciado en Historia por la UNMSM. Profesor auxiliar en Historia y exdirector
+                            del Fondo Editorial de la UNMSM. Su trabajo se enfoca en la historia política peruana del
+                            siglo XIX y el Estado peruano.
+                        </p>
+                    </div>
+                </div>
+                <div
+                    class="card bg-white border-4 border-white rounded-lg shadow-lg m-4 overflow-hidden w-72 text-center transition-transform duration-200 ease-in-out scale-105 shadow-2xl relative group">
+                    <div class="relative w-full h-72">
+                        <img src="{{ asset('assets/images/events/curso-taller2025/img/especialistas/Nicolas.png') }}"
+                            alt="Nicolás Herencia Calampa"
+                            class="absolute inset-0 w-full h-full object-cover z-10 transition-opacity duration-500 ease-in-out group-opacity-90">
+                    </div>
+
+                    <div class="card-content p-4 relative z-20">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-2">Nicolás Herencia Calampa</h3>
+                        <p class="text-sm text-gray-600 leading-relaxed">
+                            Profesional en ciencias físicas, con valiosas contribuciones al estudio de la contaminación
+                            sonora y su impacto urbano. Su trabajo es reconocido globalmente, y su participación en
+                            proyectos colaborativos refleja su compromiso con la investigación, la innovación y el
+                            desarrollo sostenible.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        </div>
+        </div>
+    </section>
+
+    </div>
+    <section id="about" class="bg-gradient-to-b from-[#00A9C8] to-[#00152C] text-white py-20">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center uppercase mb-8">
+                Acerca del Curso
+            </h2>
+            <div class="flex justify-center items-center mb-8">
+                <div class="w-16 h-1 bg-white"></div>
+                <i class="fas fa-info-circle text-white mx-4"></i>
+                <div class="w-16 h-1 bg-white"></div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <p class="text-lg">
+                    El Curso Taller de Capacitación sobre Desarrollo Cognitivo: “Construcción de Ítems Modelo por
+                    Competencias” es una iniciativa del Centro de Estudios Preuniversitario de la Universidad Nacional
+                    del Altiplano - CEPREUNA, dirigida a docentes de preparación preuniversitaria en Puno. Su objetivo
+                    es fortalecer las competencias pedagógicas mediante la elaboración de ítems alineados al enfoque por
+                    competencias, asegurando una enseñanza efectiva y centrada en aprendizajes significativos.
+                </p>
+                <p class="text-lg">
+                    En esta capacitación de dos días, los participantes profundizarán en estrategias de enseñanza y en
+                    la actualización del enfoque de evaluación por competencias, permitiéndoles mejorar sus prácticas
+                    docentes y optimizar el proceso de aprendizaje de los estudiantes.
+                </p>
+            </div>
+        </div>
+    </section>
+
+
+    <section id="inscribirse" class="py-20 bg-gradient-to-b from-[#00A9C8] to-[#00152C]">
+        <h2 class="text-3xl text-white text-white font-bold text-center uppercase text-gray-800 mb-8">
+            Inscribirse
+        </h2>
+        <div class="container mx-auto px-4 text-gray-800">
+            <div class="flex justify-center items-center mb-8">
+                <div class="w-16 h-1 bg-white "></div>
+                <i class="fas fa-clipboard-list text-white mx-4"></i>
+                <div class="w-16 h-1 bg-white "></div>
+            </div>
+            <form class="max-w-lg mx-auto">
+                <div class="mb-4 grid grid-cols-2 gap-x-4">
+                    <div class="flex flex-col">
+                        <select id="tipoDocumento"
+                            class="px-4 py-2 border rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                            required>
+                            <option value="1">Documento Nacional de Identidad (DNI)</option>
+                            <option value="2">Pasaporte</option>
+                            <option value="3">Carné de Extranjería</option>
+                            <option value="4">Cédula de identidad</option>
+                        </select>
+                    </div>
+                    <div class="flex flex-col">
+                        <input type="number" placeholder="Número de documento"
+                            class="px-4 py-2 border rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                            id="nro_documento"
+                            oninput="this.value = this.value.replace(/[^0-9]/g, ''); updateVoucherDNI();" required />
+                    </div>
+                </div>
+                <div class="mb-4 flex gap-x-4 flex-col">
+                    <input type="text" placeholder="Nombres" id="nombres"
+                        class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 flex flex-col"
+                        oninput="this.value = this.value.toUpperCase();" required />
+                </div>
+                <div class="mb-4 grid grid-cols-2 gap-x-4">
+                    <div class="flex flex-col">
+                        <input type="text" placeholder="Apellido paterno" id="apellido_paterno"
+                            class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                            oninput="this.value = this.value.toUpperCase();" required />
+                    </div>
+                    <div class="flex flex-col">
+                        <input type="text" placeholder="Apellido materno" id="apellido_materno"
+                            class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                            oninput="this.value = this.value.toUpperCase();" required />
+                    </div>
+                </div>
+                <div class="mb-4">
+                    <input type="number" placeholder="Número de celular" id="celular"
+                        class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                        oninput="this.value = this.value.replace(/[^0-9]/g, '');" required />
+                </div>
+                <div class="mb-4">
+                    <input type="email" id="email" placeholder="Correo electrónico"
+                        class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                        required />
+                </div>
+
+                <div class="flex flex-col-2">
+                    <div class="mb-4 w-64 flex-col-1 mr-4">
+                        <label class="block mb-2 font-bold text-white">Condición:</label>
+                        <select id="condicion"
+                            class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                            required>
+                            <option value="1">UNAP</option>
+                            <option value="2">Particular</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-4 flex-col-1">
+                        <label class="block mb-2 text-white font-bold">Seleccione espelización:</label>
+                        <select id="area"
+                            class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                            required>
+                            <option value="1">Razonamiento Matemático, Aritmética, Álgebra, Geometría y Trigonometría
+                            </option>
+                            <option value="2">Razonamiento Verbal, Comunicación y Literatura</option>
+                            <option value="3">Física, Química, Biología y Anatomía</option>
+                            <option value="4">Geografía, Historía, Educación Cívica, Economía, Psicología y Filosofía
+                            </option>
+                        </select>
+                    </div>
+                </div>
+                <button type="button"
+                    class="bg-blue-500 text-white px-8 py-3 rounded-full bg-blue-600 transition-colors"
+                    onclick="openModal('voucherModal')">
+                    Subir Voucher
+                </button>
+                <section class="mt-4 hidden" id="pagos-validados">
+                    <h2 class="text-2xl font-bold text-center uppercase text-white">Pagos Validados</h2>
+                    <div class="overflow-x-auto">
+                        <table class="w-full table-fixed border-collapse border border-gray-300">
+                            <thead class="bg-gray-200 text-black">
+                                <tr>
+                                    <th class="p-2 border">#</th>
+                                    <th class="p-2 border">Fecha</th>
+                                    <th class="p-2 border">Monto</th>
+                                    <th class="p-2 border">Secuencia</th>
+                                    <th class="p-2 border">Estado</th>
+                                </tr>
+                            </thead>
+                            <tbody id="listaPagos" class="text-white text-white">
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+                <button type="button" id="botonEnviar"
+                    class="hidden container mt-2 bg-blue-500 text-white px-8 py-3 rounded-full bg-blue-600 transition-colors">
+                    Enviar
+                </button>
+                <div id="voucherModal"
+                    class="fixed inset-0 bg-black bg-opacity-50 hidden justify-center overflow-y-scroll items-center z-50"
+                    onclick="closeModal('voucherModal')">
+                    <div class="bg-white rounded-lg w-11/12 md:w-3/4 lg:w-1/2 p-6 relative"
+                        onclick="event.stopPropagation()">
+                        <button type="button" class="absolute top-2 right-2 text-gray-700 text-gray-900"
+                            onclick="event.stopPropagation(); closeModal('voucherModal');">
+                            <i class="fas fa-times"></i>
+                        </button>
+                        <div class="flex md:flex-col-2 flex-wrap md:flex-nowrap">
+                            <div class="mb-4 flex-col-1 md:flex-col-1 md:w-1/2 md:mr-4">
+                                <label class="block mb-2 text-black font-bold">Ejemplo de voucher de banco:</label>
+                                <img id="voucherImage" class="max-w-full h-auto"
+                                    src="https://sistemas.cepreuna.edu.pe/images/voucher.jpg" alt="voucher">
+                            </div>
+                            <div class="mb-4   flex-col-1 md:w-1/2  ">
+                                <h2 class="text-2xl font-bold text-gray-800 md:mb-4">Subir Voucher</h2>
+                                <label class="block mb-2 text-black font-bold">Tipo de pago:</label>
+                                <div class="mb-2">
+                                    <select id="selectPago"
+                                        class="w-full md:px-4 md:py-2  border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                                        <option value="1">Ventanilla BN</option>
+                                        <option value="2">Pagalo.pe</option>
+                                    </select>
+                                </div>
+                                <div class="mb-2">
+                                    <input type="number" placeholder="Documento" id="documento"
+                                        class="w-full md:px-4 md:py-2
+                                         border rounded-lg disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-indigo-500" disabled />
+                                </div>
+                                <div class="mb-2">
+                                    <input type="number" id="secuencia" placeholder="Secuencia"
+                                        class="w-full md:px-4 md:py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500" />
+                                </div>
+                                <div class="mb-2">
+                                    <input type="date" id="fecha" placeholder="Fecha"
+                                        class="w-full md:px-4 md:py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500" />
+                                </div>
+                                <div class="">
+                                    <input type="text" id="monto" placeholder="Monto"
+                                        class="w-full md:px-4 md:py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                                        step="0.01" min="0" />
+                                </div>
+                            </div>
+
+
+                        </div>
+                        <input type="file" id="file"
+                            class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                            accept=".png, .jpg, .jpeg, .pdf" onchange="previewFile()" />
+                        <div id="filePreview" class=""></div>
+
+                        <button id="validateButton" type="button"
+                            class="mt-4 bg-blue-500 text-white px-4 py-2 rounded bg-blue-600">
+                            Validar
+                        </button>
+                        <button id="validateButton" type="button"
+                            class="mt-4 bg-red-500 text-white px-4 py-2 rounded bg-red-600"
+                            onclick="event.stopPropagation(); closeModal('voucherModal');">
+                            Cerrar
+                        </button>
+                    </div>
+                </div>
+            </form>
+
+
+
+        </div>
+    </section>
+    <footer class="bg-gray-800 text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div>
+                    <h4 class="text-xl font-bold mb-4">Dirección</h4>
+                    <p>
+                        Jr. Acora N° 235<br />
+                        Puno, Perú
+                    </p>
+                </div>
+                <div>
+                    <h4 class="text-xl font-bold mb-4">Nuestras Redes Sociales</h4>
+                    <div class="flex space-x-4">
+                        <a href="https://www.facebook.com/cepreunapuno" class="text-white text-blue-500"><i
+                                class="fab fa-facebook-f"></i></a>
+                        <a href="https://www.tiktok.com/@cepreuna_puno" class="text-white text-blue-500"><i
+                                class="fab fa-tiktok"></i></a>
+                        <a href="https://api.whatsapp.com/send?phone=51930500486" class="text-white text-blue-500"><i
+                                class="fab fa-whatsapp"></i></a>
+                        <a href="https://cepreuna.edu.pe/" class="text-white text-blue-500"><i
+                                class="fab fa-dribbble"></i></a>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="text-xl font-bold mb-4">Acerca del CEPREUNA</h4>
+                    <p>
+                        CEPREUNA es el Centro de Estudios Preuniversitarios de la Universidad Nacional del Altiplano,
+                        brindando preparación preuniversitaria a jóvenes de Puno y otras regiones.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <div class="bg-gray-900 text-white text-center py-4">
+        <div class="container mx-auto px-4">
+            <small>Copyright &copy; CEPREUNA 2025</small>
+        </div>
+    </div>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.js"></script>
+    <!-- Scripts -->
+    <script>
+        let pagosValidados = [];
+
+        document.getElementById('validateButton').addEventListener('click', async () => {
+            // Obtener los elementos del formulario
+            const secuenciaInput = document.getElementById('secuencia');
+            const montoInput = document.getElementById('monto');
+            const selectPago = document.getElementById('selectPago');
+            const fechaInput = document.getElementById('fecha');
+            const fileInput = document.getElementById('file');
+            const documentoInput = document.getElementById('documento');
+            const listPagVal = document.querySelector('.pagos-validados');
+
+            const formData = new FormData();
+            formData.append('secuencia', secuenciaInput.value);
+            formData.append('monto', montoInput.value);
+            formData.append('fecha', fechaInput.value);
+            formData.append('file', fileInput.files[0]);
+            formData.append('documento', documentoInput.value);
+            let pagarEnPagalo = false;
+            if (selectPago.value == '2') {
+                pagarEnPagalo = true
+                formData.append('pagarEnPagalo', pagarEnPagalo)
+            }
+            try {
+                const response = await fetch('http://localhost:8000/api/pagos/validar-pago-curso', {
+                    method: 'POST',
+                    body: formData,
+                });
+
+                const result = await response.json();
+
+                if (result.status) {
+                    toastr.success(result.message, 'Éxito');
+
+                    pagosValidados.push({
+                        fecha: result.fecha,
+                        monto: result.monto,
+                        secuencia: result.secuencia,
+                        token: result.token
+                    });
+
+                    actualizarListaPagos();
+                    closeModal('voucherModal');
+                    document.getElementById('pagos-validados').classList.remove('hidden');
+                    document.getElementById('botonEnviar').classList.remove('hidden');
+                } else {
+                    toastr.error(result.message, 'Error');
+                }
+            } catch (error) {
+                toastr.error('Ocurrió un error al procesar la solicitud.', 'Error');
+            }
+        });
+
+        function toggleMenu() {
+            const menu = document.getElementById("navbarResponsive");
+            menu.classList.toggle("hidden");
+        }
+
+        function openModal(id) {
+            document.getElementById(id).classList.remove("hidden");
+            document.getElementById(id).classList.add("flex");
+        }
+
+        function closeModal(id) {
+            document.getElementById(id).classList.add("hidden");
+            document.getElementById(id).classList.remove("flex");
+        }
+
+        function updateVoucherDNI() {
+            let dniValue = document.getElementById("nro_documento").value;
+            document.getElementById("documento").value = dniValue;
+        }
+
+        function previewFile() {
+            const fileInput = document.getElementById("file");
+            const filePreview = document.getElementById("filePreview");
+            filePreview.innerHTML = "";
+
+            if (fileInput.files.length > 0) {
+                const file = fileInput.files[0];
+                const fileType = file.type;
+
+                if (fileType.includes("image")) {
+                    // Si es una imagen
+                    const img = document.createElement("img");
+                    img.src = URL.createObjectURL(file);
+                    img.classList.add("w-full", "h-auto", "rounded-lg", "mt-2");
+                    img.style.maxHeight = "300px";
+                    filePreview.appendChild(img);
+                } else if (fileType.includes("pdf")) {
+                    // Si es un PDF
+                    const iframe = document.createElement("iframe");
+                    iframe.src = URL.createObjectURL(file);
+                    iframe.classList.add("w-full", "h-64", "mt-2");
+                    filePreview.appendChild(iframe);
+                } else {
+                    filePreview.innerHTML = "<p class='text-red-500 mt-2'>Formato no soportado</p>";
+                }
+            }
+        }
+
+        function actualizarListaPagos() {
+            const listaPagos = document.getElementById("listaPagos");
+
+            listaPagos.innerHTML = "";
+            console.log("->> ", pagosValidados)
+            pagosValidados.forEach((pago, index) => {
+                const pagoHTML = `
+                <tr class="border-b">
+                    <td class="p-2 text-center">${index + 1}</td>
+                    <td class="p-2 text-center">${pago.fecha}</td>
+                    <td class="p-2 text-center">${pago.monto}</td>
+                    <td class="p-2 text-center">${pago.secuencia}</td>
+                    <td class="p-2 text-center text-green-500 font-bold">Validado</td>
+                </tr>
+            `;
+                listaPagos.innerHTML += pagoHTML;
+            });
+        }
+
+        document.getElementById("botonEnviar").addEventListener("click", async function () {
+
+            let formData = new FormData();
+            let tokens = [];
+
+            console.log(pagosValidados)
+            for (let option of pagosValidados) {
+                console.log(option)
+                tokens.push(option.token);
+                formData.append("tokens[]", option.token);
+            }
+
+            if (tokens.length === 0) {
+                formData.append("tokens", "");
+            }
+
+            formData.append("nombre", document.querySelector("input[placeholder='Nombres']").value);
+            formData.append("paterno", document.querySelector("input[placeholder='Apellido paterno']").value);
+            formData.append("materno", document.querySelector("input[placeholder='Apellido materno']").value);
+            formData.append("documento", document.getElementById("nro_documento").value);
+            formData.append("correo", document.querySelector("input[placeholder='Correo electrónico']").value);
+            formData.append("celular", document.querySelector("input[placeholder='Número de celular']").value);
+            formData.append("area", document.getElementById("area").value);
+            formData.append("condicion", document.querySelector("#condicion").value);
+
+            try {
+                const response = await fetch("http://localhost:8000/api/v1/inscripcion/curso-taller", {
+                    method: "POST",
+                    body: formData,
+                });
+
+                const result = await response.json();
+                if (response.ok) {
+                    toastr.success(result.message || "Inscripción realizada con éxito.", "Éxito");
+                    window.location.replace(result.url);
+                    document.getElementById("formInscripcion").reset();
+                } else {
+                    toastr.error(result.message || "Hubo un error al inscribirse.", "Error");
+                }
+            } catch (error) { }
+        });
+    </script>
+</body>
+
+</html>

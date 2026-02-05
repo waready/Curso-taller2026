@@ -304,10 +304,6 @@
                             <div class="text-white font-bold">Validación segura</div>
                             <div class="text-sm text-white/80 font-body">Por secuencia, fecha y monto.</div>
                         </div>
-                        <div class="rounded-2xl bg-white/8 ring-1 ring-white/15 p-3">
-                            <div class="text-white font-bold">Experiencia fluida</div>
-                            <div class="text-sm text-white/80 font-body">Interfaz clara y responsive.</div>
-                        </div>
                     </div>
                 </div>
 
@@ -340,8 +336,8 @@
                             <div class="flex items-start gap-3">
                                 <div class="mt-1 text-[#00A9C8]"><i class="fa-solid fa-circle-info"></i></div>
                                 <div class="text-white/90 font-body text-sm sm:text-[15px] leading-relaxed">
-                                    Tip: Asegúrate de que tu voucher muestre claramente
-                                    <strong class="text-white">secuencia, fecha y monto</strong> antes de validarlo.
+                                    Este taller cuenta con <strong class="text-white">cupos limitados</strong>. No dejes
+                                    pasar la oportunidad de participar.
                                 </div>
                             </div>
                         </div>
@@ -628,126 +624,183 @@
                     <div class="rounded-3xl bg-white/95 ring-1 ring-white/30 shadow-soft2 p-6 sm:p-8">
                         <!-- FIX: ahora el form sí tiene id para reset -->
                         <form id="formInscripcion" class="space-y-5" novalidate>
+
+                            <!-- Inputs -->
                             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                 <div>
-                                    <label for="tipoDocumento" class="block text-sm font-bold text-slate-800">Tipo de
-                                        documento</label>
-                                    <select id="tipoDocumento"
-                                        class="mt-2 w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-800 shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-cyan"
-                                        required>
-                                        <option value="1">Documento Nacional de Identidad (DNI)</option>
-                                        <option value="2">Pasaporte</option>
-                                        <option value="3">Carné de Extranjería</option>
-                                        <option value="4">Cédula de identidad</option>
-                                    </select>
+                                    <label for="tipoDocumento" class="block text-sm font-extrabold text-slate-900">Tipo
+                                        de documento</label>
+
+                                    <div class="relative mt-2">
+                                        <span
+                                            class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-4 text-slate-400">
+                                            <i class="fa-solid fa-id-card"></i>
+                                        </span>
+
+                                        <select id="tipoDocumento"
+                                            class="peer w-full appearance-none rounded-2xl border border-slate-200 bg-white/90 pl-11 pr-11 py-3 text-sm font-semibold text-slate-900 shadow-sm
+                     transition hover:border-slate-300 hover:bg-white
+                     focus:outline-none focus-visible:ring-4 focus-visible:ring-[#00A9C8]/25 focus-visible:border-[#00A9C8]" required>
+                                            <option value="1">Documento Nacional de Identidad (DNI)</option>
+                                            <option value="2">Pasaporte</option>
+                                            <option value="3">Carné de Extranjería</option>
+                                            <option value="4">Cédula de identidad</option>
+                                        </select>
+
+                                        <span
+                                            class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-4 text-slate-400 peer-focus:text-[#00A9C8] transition">
+                                            <i class="fa-solid fa-chevron-down"></i>
+                                        </span>
+                                    </div>
                                 </div>
 
                                 <div>
-                                    <label for="nro_documento" class="block text-sm font-bold text-slate-800">Número de
-                                        documento</label>
+                                    <label for="nro_documento"
+                                        class="block text-sm font-extrabold text-slate-900">Número de documento</label>
                                     <input type="text" inputmode="numeric" id="nro_documento" placeholder="Ej: 12345678"
-                                        class="mt-2 w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-800 shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-cyan"
+                                        class="mt-2 w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm font-semibold text-slate-900 shadow-sm
+                   transition hover:border-slate-300
+                   focus:outline-none focus-visible:ring-4 focus-visible:ring-[#00A9C8]/25 focus-visible:border-[#00A9C8]"
                                         oninput="this.value = this.value.replace(/[^0-9]/g, ''); updateVoucherDNI();"
                                         required />
                                 </div>
                             </div>
 
                             <div>
-                                <label for="nombres" class="block text-sm font-bold text-slate-800">Nombres</label>
+                                <label for="nombres" class="block text-sm font-extrabold text-slate-900">Nombres</label>
                                 <input type="text" id="nombres" placeholder="Nombres"
-                                    class="mt-2 w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-800 shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-cyan"
-                                    oninput="this.value = this.value.toUpperCase();" required />
+                                    class="mt-2 w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm font-semibold text-slate-900 shadow-sm
+                 transition hover:border-slate-300
+                 focus:outline-none focus-visible:ring-4 focus-visible:ring-[#00A9C8]/25 focus-visible:border-[#00A9C8]" oninput="this.value = this.value.toUpperCase();"
+                                    required />
                             </div>
 
                             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                 <div>
                                     <label for="apellido_paterno"
-                                        class="block text-sm font-bold text-slate-800">Apellido paterno</label>
+                                        class="block text-sm font-extrabold text-slate-900">Apellido paterno</label>
                                     <input type="text" id="apellido_paterno" placeholder="Apellido paterno"
-                                        class="mt-2 w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-800 shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-cyan"
-                                        oninput="this.value = this.value.toUpperCase();" required />
+                                        class="mt-2 w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm font-semibold text-slate-900 shadow-sm
+                   transition hover:border-slate-300
+                   focus:outline-none focus-visible:ring-4 focus-visible:ring-[#00A9C8]/25 focus-visible:border-[#00A9C8]" oninput="this.value = this.value.toUpperCase();" required />
                                 </div>
 
                                 <div>
                                     <label for="apellido_materno"
-                                        class="block text-sm font-bold text-slate-800">Apellido materno</label>
+                                        class="block text-sm font-extrabold text-slate-900">Apellido materno</label>
                                     <input type="text" id="apellido_materno" placeholder="Apellido materno"
-                                        class="mt-2 w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-800 shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-cyan"
-                                        oninput="this.value = this.value.toUpperCase();" required />
+                                        class="mt-2 w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm font-semibold text-slate-900 shadow-sm
+                   transition hover:border-slate-300
+                   focus:outline-none focus-visible:ring-4 focus-visible:ring-[#00A9C8]/25 focus-visible:border-[#00A9C8]" oninput="this.value = this.value.toUpperCase();" required />
                                 </div>
                             </div>
 
                             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                 <div>
-                                    <label for="celular" class="block text-sm font-bold text-slate-800">Número de
+                                    <label for="celular" class="block text-sm font-extrabold text-slate-900">Número de
                                         celular</label>
                                     <input type="text" inputmode="numeric" id="celular" placeholder="Número de celular"
-                                        class="mt-2 w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-800 shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-cyan"
+                                        class="mt-2 w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm font-semibold text-slate-900 shadow-sm
+                   transition hover:border-slate-300
+                   focus:outline-none focus-visible:ring-4 focus-visible:ring-[#00A9C8]/25 focus-visible:border-[#00A9C8]"
                                         oninput="this.value = this.value.replace(/[^0-9]/g, '');" required />
                                 </div>
 
                                 <div>
-                                    <label for="email" class="block text-sm font-bold text-slate-800">Correo
+                                    <label for="email" class="block text-sm font-extrabold text-slate-900">Correo
                                         electrónico</label>
                                     <input type="email" id="email" placeholder="Correo electrónico"
-                                        class="mt-2 w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-800 shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-cyan"
-                                        required />
+                                        class="mt-2 w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm font-semibold text-slate-900 shadow-sm
+                   transition hover:border-slate-300
+                   focus:outline-none focus-visible:ring-4 focus-visible:ring-[#00A9C8]/25 focus-visible:border-[#00A9C8]" required />
                                 </div>
                             </div>
 
                             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                 <div>
                                     <label for="condicion"
-                                        class="block text-sm font-bold text-slate-800">Condición</label>
-                                    <select id="condicion"
-                                        class="mt-2 w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-800 shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-cyan"
-                                        required>
-                                        <option value="1">UNAP</option>
-                                        <option value="2">Particular</option>
-                                    </select>
+                                        class="block text-sm font-extrabold text-slate-900">Condición</label>
+                                    <div class="relative mt-2">
+                                        <span
+                                            class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-4 text-slate-400">
+                                            <i class="fa-solid fa-user-check"></i>
+                                        </span>
+
+                                        <select id="condicion"
+                                            class="peer w-full appearance-none rounded-2xl border border-slate-200 bg-white/90 pl-11 pr-11 py-3 text-sm font-semibold text-slate-900 shadow-sm
+                     transition hover:border-slate-300 hover:bg-white
+                     focus:outline-none focus-visible:ring-4 focus-visible:ring-[#00A9C8]/25 focus-visible:border-[#00A9C8]" required>
+                                            <option value="1">UNAP</option>
+                                            <option value="2">Particular</option>
+                                        </select>
+
+                                        <span
+                                            class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-4 text-slate-400 peer-focus:text-[#00A9C8] transition">
+                                            <i class="fa-solid fa-chevron-down"></i>
+                                        </span>
+                                    </div>
                                 </div>
 
                                 <div>
-                                    <label for="area" class="block text-sm font-bold text-slate-800">Seleccione
+                                    <label for="area" class="block text-sm font-extrabold text-slate-900">Seleccione
                                         especialización</label>
-                                    <select id="area"
-                                        class="mt-2 w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-800 shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-cyan"
-                                        required>
-                                        <option value="1">Razonamiento Matemático, Aritmética, Álgebra, Geometría y
-                                            Trigonometría</option>
-                                        <option value="2">Razonamiento Verbal, Comunicación y Literatura</option>
-                                        <option value="3">Física, Química, Biología y Anatomía</option>
-                                        <option value="4">Geografía, Historía, Educación Cívica, Economía, Psicología y
-                                            Filosofía</option>
-                                    </select>
+                                    <div class="relative mt-2">
+                                        <span
+                                            class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-4 text-slate-400">
+                                            <i class="fa-solid fa-layer-group"></i>
+                                        </span>
+
+                                        <select id="area"
+                                            class="peer w-full appearance-none rounded-2xl border border-slate-200 bg-white/90 pl-11 pr-11 py-3 text-sm font-semibold text-slate-900 shadow-sm
+                     transition hover:border-slate-300 hover:bg-white
+                     focus:outline-none focus-visible:ring-4 focus-visible:ring-[#00A9C8]/25 focus-visible:border-[#00A9C8]"
+                                            required>
+                                            <option value="1">Razonamiento Matemático, Aritmética, Álgebra, Geometría y
+                                                Trigonometría</option>
+                                            <option value="2">Razonamiento Verbal, Comunicación y Literatura</option>
+                                            <option value="3">Física, Química, Biología y Anatomía</option>
+                                            <option value="4">Geografía, Historía, Educación Cívica, Economía,
+                                                Psicología y Filosofía</option>
+                                        </select>
+
+                                        <span
+                                            class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-4 text-slate-400 peer-focus:text-[#00A9C8] transition">
+                                            <i class="fa-solid fa-chevron-down"></i>
+                                        </span>
+                                    </div>
                                 </div>
                             </div>
 
-                            <div class="flex flex-col sm:flex-row gap-3 sm:items-center pt-2">
-                                <button type="button" id="btnOpenVoucher"
-                                    class="inline-flex items-center justify-center gap-2 rounded-xl bg-[#00A9C8] px-5 py-3 text-sm font-extrabold text-white shadow-soft hover:brightness-110 transition focus:outline-none focus-visible:ring-2 focus-visible:ring-[#00A9C8] focus-visible:ring-offset-2 focus-visible:ring-offset-white"
-                                    onclick="openModal('voucherModal')">
-                                    <i class="fa-solid fa-upload"></i>
-                                    Subir Voucher
-                                </button>
-
-
-                                <button type="button" id="botonEnviar"
-                                    class="hidden inline-flex items-center justify-center gap-2 rounded-xl bg-brand-orange px-5 py-3 text-sm font-extrabold text-white shadow-soft hover:brightness-110 transition focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange focus-visible:ring-offset-2">
-                                    <i class="fa-solid fa-paper-plane"></i>
-                                    Enviar inscripción
-                                </button>
+                            <!-- Actions -->
+                            <div class="pt-2">
+                                <div class="flex flex-col sm:flex-row gap-3 sm:items-center">
+                                    <button type="button" id="btnOpenVoucher"
+                                        class="inline-flex items-center justify-center gap-2 rounded-xl bg-[#00A9C8] px-6 py-3 text-sm font-extrabold text-white shadow-soft hover:brightness-110 transition
+                   focus:outline-none focus-visible:ring-4 focus-visible:ring-[#00A9C8]/25 focus-visible:ring-offset-2 focus-visible:ring-offset-white"
+                                        onclick="openModal('voucherModal')">
+                                        <i class="fa-solid fa-upload"></i>
+                                        Subir Voucher
+                                    </button>
+                                </div>
                             </div>
 
+                            <!-- Pagos validados -->
                             <section class="mt-6 hidden" id="pagos-validados" aria-live="polite">
-                                <div class="flex items-center justify-between gap-3">
-                                    <h3 class="text-lg font-extrabold text-slate-900">Pagos Validados</h3>
+                                <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-2">
+                                    <div>
+                                        <h3 class="text-lg sm:text-xl font-extrabold text-slate-900">Pagos Validados
+                                        </h3>
+                                        <p class="text-sm text-slate-600 font-body">Al validar tu voucher se habilita el
+                                            botón <strong>Enviar</strong>.</p>
+                                    </div>
                                     <span class="text-xs font-bold text-slate-500">Se habilita “Enviar” al
                                         validar</span>
                                 </div>
 
-                                <div class="mt-3 overflow-x-auto rounded-2xl border border-slate-200">
-                                    <table class="min-w-[640px] w-full border-collapse">
+                                <!-- tabla con look pro + scroll elegante -->
+                                <div
+                                    class="mt-3 overflow-x-auto rounded-2xl border border-slate-200 bg-white shadow-sm">
+                                    <table class="min-w-[720px] w-full border-collapse">
                                         <thead class="bg-slate-50 text-slate-700">
                                             <tr>
                                                 <th
@@ -767,13 +820,36 @@
                                                     Estado</th>
                                             </tr>
                                         </thead>
-                                        <tbody id="listaPagos" class="divide-y divide-slate-200"></tbody>
+                                        <tbody id="listaPagos" class="divide-y divide-slate-200 text-slate-800"></tbody>
                                     </table>
                                 </div>
+
+                                <!-- ayuda visual -->
+                                <div class="mt-3 rounded-2xl bg-[#00A9C8]/10 ring-1 ring-[#00A9C8]/20 p-4">
+                                    <div class="flex items-start gap-3">
+                                        <i class="fa-solid fa-circle-info mt-0.5 text-[#00A9C8]"></i>
+                                        <p class="text-sm text-slate-700 font-body leading-relaxed">
+                                            Si el estado aparece como <strong class="text-slate-900">Validado</strong>,
+                                            ya puedes enviar tu inscripción.
+                                        </p>
+                                    </div>
+                                </div>
+                                <!-- ✅ Botón ENVIAR grande tipo pill (como el anterior) -->
+                                <button type="button" id="botonEnviar"
+                                    class="hidden w-full sm:w-auto sm:flex-1 rounded-full px-6 py-5 text-lg font-extrabold text-white shadow-soft2 transition
+                   bg-[#2563EB] hover:brightness-110 active:scale-[0.99]
+                   focus:outline-none focus-visible:ring-4 focus-visible:ring-[#2563EB]/30 focus-visible:ring-offset-2 focus-visible:ring-offset-white">
+                                    <span class="inline-flex items-center justify-center gap-3">
+                                        <i class="fa-solid fa-paper-plane"></i>
+                                        Enviar inscripción
+                                    </span>
+                                </button>
                             </section>
+
                         </form>
                     </div>
                 </div>
+
             </div>
         </div>
 
@@ -1261,7 +1337,7 @@
             }
 
             try {
-                const response = await fetch("https://sistemas.cepreuna.edu.pe/api/pagos/validar-pago-curso", {
+                const response = await fetch("http://localhost:8000/api/pagos/validar-pago-curso", {
                     method: "POST",
                     body: formData
                 });
@@ -1333,7 +1409,7 @@
             formData.append("condicion", document.getElementById("condicion").value);
 
             try {
-                const response = await fetch("https://sistemas.cepreuna.edu.pe/api/v1/inscripcion/curso-taller", {
+                const response = await fetch("http://localhost:8000/api/v1/inscripcion/curso-taller", {
                     method: "POST",
                     body: formData
                 });
