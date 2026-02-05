@@ -1,0 +1,1376 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description"
+        content="Curso Taller CEPREUNA - Desarrollo Cognitivo. Inscripción y validación de voucher en línea." />
+    <meta name="author" content="CEPREUNA" />
+
+    <title></title>
+
+    <!-- FIX: favicon debe usar href (antes estaba src) -->
+    <link rel="icon" type="image/png" href="./img/curso-taller2025/img/logo-cepreuna2025.png" />
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,600,700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic&display=swap"
+        rel="stylesheet" />
+
+    <!-- Tailwind config BEFORE CDN -->
+    <script>
+        tailwind = window.tailwind || {};
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ["Montserrat", "ui-sans-serif", "system-ui", "Segoe UI", "Roboto", "Helvetica Neue", "Arial", "Noto Sans", "sans-serif"],
+                        body: ["Lato", "ui-sans-serif", "system-ui"]
+                    },
+                    colors: {
+                        brand: {
+                            navy: "#041428",
+                            deep: "#00152C",
+                            cyan: "#00A9C8",
+                            sky: "#12B4E6",
+                            orange: "#FF8A00"
+                        }
+                    },
+                    boxShadow: {
+                        soft: "0 10px 30px rgba(0,0,0,.10)",
+                        soft2: "0 18px 50px rgba(0,0,0,.18)"
+                    },
+                    keyframes: {
+                        floaty: {
+                            "0%,100%": { transform: "translateY(0)" },
+                            "50%": { transform: "translateY(-6px)" }
+                        }
+                    },
+                    animation: {
+                        floaty: "floaty 6s ease-in-out infinite"
+                    }
+                }
+            }
+        };
+    </script>
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Icons / libs -->
+    <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+    <!-- Flowbite (ya lo tenías) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.js"></script>
+
+    <style>
+        /* Scroll offset para navbar sticky */
+        section[id] {
+            scroll-margin-top: 96px;
+        }
+
+        /* Reveal (sin afectar rendimiento) */
+        .reveal {
+            opacity: 0;
+            transform: translateY(16px);
+            transition: opacity 600ms ease, transform 600ms ease;
+            will-change: opacity, transform;
+        }
+
+        .reveal.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .reveal {
+                transition: none !important;
+                transform: none !important;
+                opacity: 1 !important;
+            }
+
+            .reduce-motion {
+                animation: none !important;
+                transition: none !important;
+            }
+        }
+    </style>
+</head>
+
+<body class="font-sans overflow-x-hidden text-slate-900 bg-white">
+    <!-- NAVBAR -->
+    <nav
+        class="sticky top-0 z-50 border-b border-slate-200/70 bg-white/85 backdrop-blur supports-[backdrop-filter]:bg-white/70">
+        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div class="flex h-16 items-center justify-between">
+                <a href="#page-top"
+                    class="flex items-center gap-3 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-cyan focus-visible:ring-offset-2 rounded-lg">
+                    <img src="./img/curso-taller2025/img/logo-cepreuna2025.png" class="h-10 w-10 object-contain"
+                        alt="Logo CEPREUNA" />
+                    <div class="leading-tight">
+                        <div class="text-base font-bold text-slate-900">CEPREUNA</div>
+                        <div class="text-sm text-slate-600">Curso Taller</div>
+                    </div>
+                </a>
+
+                <!-- Desktop nav -->
+                <div class="hidden md:flex items-center gap-2">
+                    <a data-nav="especialistas" href="#especialistas"
+                        class="nav-link px-3 py-2 text-sm font-semibold text-slate-700 rounded-lg hover:text-brand-cyan hover:bg-slate-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-cyan focus-visible:ring-offset-2">Ponentes</a>
+                    <a data-nav="about" href="#about"
+                        class="nav-link px-3 py-2 text-sm font-semibold text-slate-700 rounded-lg hover:text-brand-cyan hover:bg-slate-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-cyan focus-visible:ring-offset-2">Acerca
+                        del curso</a>
+                    <a href="#inscribirse"
+                        class="ml-2 inline-flex items-center gap-2 rounded-xl bg-[#FF8A00] px-4 py-2 text-sm font-bold text-white shadow-soft hover:brightness-110 transition focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[#FF8A00]">
+                        <i class="fa-solid fa-pen-to-square"></i>
+                        Inscribirme
+                    </a>
+
+                </div>
+
+                <!-- Mobile button -->
+                <button id="menu-toggle" type="button" aria-controls="nav-menu" aria-expanded="false"
+                    class="md:hidden inline-flex items-center justify-center rounded-xl border border-slate-200 bg-white px-3 py-2 text-slate-700 shadow-sm hover:bg-slate-50 transition focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-cyan focus-visible:ring-offset-2">
+                    <span class="sr-only">Abrir menú</span>
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+            </div>
+
+            <!-- Mobile menu -->
+            <div id="nav-menu" class="md:hidden hidden pb-4">
+                <div class="mt-2 grid gap-1 rounded-2xl border border-slate-200 bg-white p-2 shadow-soft">
+                    <a data-nav="especialistas" href="#especialistas"
+                        class="nav-link rounded-xl px-3 py-3 text-sm font-semibold text-slate-700 hover:bg-slate-50 hover:text-brand-cyan focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-cyan">Ponentes</a>
+                    <a data-nav="about" href="#about"
+                        class="nav-link rounded-xl px-3 py-3 text-sm font-semibold text-slate-700 hover:bg-slate-50 hover:text-brand-cyan focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-cyan">Acerca
+                        del curso</a>
+                    <a data-nav="inscribirse" href="#inscribirse"
+                        class="nav-link rounded-xl px-3 py-3 text-sm font-semibold text-slate-700 hover:bg-slate-50 hover:text-brand-cyan focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-cyan">Inscribirse</a>
+                    <a href="#inscribirse"
+                        class="mt-1 inline-flex items-center justify-center gap-2 rounded-xl bg-brand-orange px-4 py-3 text-sm font-bold text-white shadow-soft hover:brightness-110 transition focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-brand-orange">
+                        <i class="fa-solid fa-pen-to-square"></i>
+                        Inscribirme
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <header id="page-top" class="relative isolate overflow-hidden">
+        <!-- Fondo -->
+        <div class="absolute inset-0 -z-10" style="
+    background:
+      radial-gradient(80% 60% at 18% 22%, rgba(0,169,200,.65), transparent 60%),
+      radial-gradient(65% 55% at 85% 25%, rgba(255,138,0,.38), transparent 55%),
+      linear-gradient(180deg, #0B2E66 0%, #041428 55%, #00152C 100%);
+  " aria-hidden="true"></div>
+
+        <!-- brillo sutil inferior -->
+        <div class="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-black/25 to-transparent -z-10"
+            aria-hidden="true"></div>
+
+        <!-- ✅ Más compacto en alto -->
+        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-8 sm:pt-10 lg:pt-12 pb-8 sm:pb-10">
+            <div class="grid gap-7 lg:gap-8 lg:grid-cols-12 lg:items-center">
+                <!-- Left -->
+                <div class="lg:col-span-7">
+                    <!-- badges más compactos -->
+                    <div class="flex flex-wrap items-center gap-2">
+                        <span
+                            class="inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1 text-sm font-semibold text-white ring-1 ring-white/15">
+                            <i class="fa-solid fa-graduation-cap"></i>
+                            Curso Taller
+                        </span>
+                        <span
+                            class="inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1 text-sm font-semibold text-white ring-1 ring-white/15">
+                            <i class="fa-solid fa-certificate"></i>
+                            Certificación
+                        </span>
+                        <span
+                            class="inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1 text-sm font-semibold text-white ring-1 ring-white/15">
+                            <i class="fa-solid fa-calendar-days"></i>
+                            2 días
+                        </span>
+                        <span
+                            class="inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1 text-sm font-semibold text-white ring-1 ring-white/15">
+                            <i class="fa-solid fa-video"></i>
+                            Modalidad virtual
+                        </span>
+                    </div>
+
+                    <!-- Título ligeramente más compacto en desktop -->
+                    <h1
+                        class="mt-4 text-4xl sm:text-5xl lg:text-[3.15rem] leading-[1.02] font-extrabold tracking-tight text-white">
+                        CURSO TALLER:
+                    </h1>
+
+                    <p class="mt-3 text-base sm:text-lg leading-relaxed text-white/85 font-body">
+                        “Capacitación en la construcción de herramientas de evaluación de preparación pre universitaria
+                        y enseñanza - aprendizaje”.
+                    </p>
+
+                    <div class="mt-5 flex flex-col sm:flex-row gap-3 sm:items-center">
+                        <a href="#inscribirse"
+                            class="inline-flex items-center justify-center gap-2 rounded-xl bg-[#FF8A00] px-6 py-3 text-sm sm:text-base font-bold text-white shadow-soft2 hover:brightness-110 transition
+                    focus:outline-none focus-visible:ring-4 focus-visible:ring-white/60 focus-visible:ring-offset-2 focus-visible:ring-offset-[#FF8A00]">
+                            <i class="fa-solid fa-pen-to-square"></i>
+                            Inscribirme
+                        </a>
+
+                        <a href="#especialistas"
+                            class="inline-flex items-center justify-center gap-2 rounded-xl bg-white/10 px-6 py-3 text-sm sm:text-base font-bold text-white ring-1 ring-white/20 hover:bg-white/15 transition
+                    focus:outline-none focus-visible:ring-4 focus-visible:ring-[#00A9C8]/35 focus-visible:ring-offset-2 focus-visible:ring-offset-[#00152C]">
+                            <i class="fa-solid fa-users"></i>
+                            Ver ponentes
+                        </a>
+                    </div>
+
+                    <!-- ✅ CONTADOR: D/H/M/S pero en formato bajo -->
+                    <div id="courseCountdown"
+                        class="mt-5 rounded-3xl bg-white/10 ring-1 ring-white/15 p-4 shadow-soft2">
+                        <div class="flex items-center justify-between gap-3">
+                            <div class="flex items-center gap-2 text-white">
+                                <i class="fa-solid fa-hourglass-half text-[#00A9C8]"></i>
+                                <p id="cdStatus" class="font-extrabold text-base sm:text-lg">Inicia en</p>
+                            </div>
+
+                            <span
+                                class="inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1 text-xs sm:text-sm font-bold text-white ring-1 ring-white/15">
+                                <i class="fa-solid fa-location-dot text-[#FF8A00]"></i>
+                                Puno, Perú
+                            </span>
+                        </div>
+
+                        <!-- contador compacto -->
+                        <div id="cdGrid" class="mt-4 grid grid-cols-2 sm:grid-cols-4 gap-3" aria-live="polite">
+                            <div class="rounded-2xl bg-black/20 ring-1 ring-white/10 px-4 py-3 text-center">
+                                <div class="flex items-baseline justify-center gap-2">
+                                    <span id="cdDays"
+                                        class="text-3xl sm:text-4xl font-extrabold text-white tabular-nums leading-none">00</span>
+                                    <span class="text-xs font-bold text-white/70">D</span>
+                                </div>
+                                <div class="mt-1 text-[11px] font-bold text-white/65">DÍAS</div>
+                            </div>
+
+                            <div class="rounded-2xl bg-black/20 ring-1 ring-white/10 px-4 py-3 text-center">
+                                <div class="flex items-baseline justify-center gap-2">
+                                    <span id="cdHours"
+                                        class="text-3xl sm:text-4xl font-extrabold text-white tabular-nums leading-none">00</span>
+                                    <span class="text-xs font-bold text-white/70">H</span>
+                                </div>
+                                <div class="mt-1 text-[11px] font-bold text-white/65">HORAS</div>
+                            </div>
+
+                            <div class="rounded-2xl bg-black/20 ring-1 ring-white/10 px-4 py-3 text-center">
+                                <div class="flex items-baseline justify-center gap-2">
+                                    <span id="cdMins"
+                                        class="text-3xl sm:text-4xl font-extrabold text-white tabular-nums leading-none">00</span>
+                                    <span class="text-xs font-bold text-white/70">M</span>
+                                </div>
+                                <div class="mt-1 text-[11px] font-bold text-white/65">MIN</div>
+                            </div>
+
+                            <div class="rounded-2xl bg-black/20 ring-1 ring-white/10 px-4 py-3 text-center">
+                                <div class="flex items-baseline justify-center gap-2">
+                                    <span id="cdSecs"
+                                        class="text-3xl sm:text-4xl font-extrabold text-white tabular-nums leading-none">00</span>
+                                    <span class="text-xs font-bold text-white/70">S</span>
+                                </div>
+                                <div class="mt-1 text-[11px] font-bold text-white/65">SEG</div>
+                            </div>
+                        </div>
+
+                        <div id="cdDone"
+                            class="mt-3 hidden rounded-2xl bg-[#00A9C8]/15 ring-1 ring-[#00A9C8]/25 p-3 text-white">
+                            <div class="flex items-start gap-2">
+                                <i class="fa-solid fa-circle-check mt-0.5 text-[#00A9C8]"></i>
+                                <div class="text-sm font-body leading-relaxed">
+                                    El curso ha finalizado. ¡Gracias por participar!
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ✅ Features más bajitas -->
+                    <div class="mt-5 grid gap-3 sm:grid-cols-3">
+                        <div class="rounded-2xl bg-white/8 ring-1 ring-white/15 p-3">
+                            <div class="text-white font-bold">Inscripción en línea</div>
+                            <div class="text-sm text-white/80 font-body">Registra tus datos y valida tu voucher.</div>
+                        </div>
+                        <div class="rounded-2xl bg-white/8 ring-1 ring-white/15 p-3">
+                            <div class="text-white font-bold">Validación segura</div>
+                            <div class="text-sm text-white/80 font-body">Por secuencia, fecha y monto.</div>
+                        </div>
+                        <div class="rounded-2xl bg-white/8 ring-1 ring-white/15 p-3">
+                            <div class="text-white font-bold">Experiencia fluida</div>
+                            <div class="text-sm text-white/80 font-body">Interfaz clara y responsive.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right -->
+                <div class="lg:col-span-5">
+                    <!-- ✅ Un poquito más grande (tipografía + presencia), sin crecer mucho en alto -->
+                    <div class="rounded-3xl bg-white/10 ring-1 ring-white/20 p-5 sm:p-6 shadow-soft2">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 items-center">
+                            <div class="flex items-center gap-3">
+                                <img src="./img/curso-taller2025/img/Logo_UNAP.png" alt="Logo UNAP"
+                                    class="h-14 w-14 object-contain reduce-motion animate-floaty" />
+                                <div class="text-white">
+                                    <div class="text-sm font-semibold text-white/80">Universidad Nacional del Altiplano
+                                    </div>
+                                    <div class="text-lg font-extrabold leading-none">UNAP</div>
+                                </div>
+                            </div>
+
+                            <div class="flex items-center gap-3">
+                                <img src="./img/curso-taller2025/img/logo-white-cepre2025.png" alt="Logo CEPREUNA"
+                                    class="h-12 w-auto object-contain reduce-motion animate-floaty" />
+                                <div class="text-white">
+                                    <div class="text-sm font-semibold text-white/80">Centro de Estudios</div>
+                                    <div class="text-lg font-extrabold leading-none">CEPREUNA</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mt-4 rounded-2xl bg-white/10 ring-1 ring-white/15 p-4">
+                            <div class="flex items-start gap-3">
+                                <div class="mt-1 text-[#00A9C8]"><i class="fa-solid fa-circle-info"></i></div>
+                                <div class="text-white/90 font-body text-sm sm:text-[15px] leading-relaxed">
+                                    Tip: Asegúrate de que tu voucher muestre claramente
+                                    <strong class="text-white">secuencia, fecha y monto</strong> antes de validarlo.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mt-4 grid grid-cols-2 gap-3">
+                            <div class="rounded-2xl bg-white/10 ring-1 ring-white/15 p-4 text-center">
+                                <div class="text-xs text-white/70">Orientado a</div>
+                                <div class="text-base font-extrabold text-white">Docentes</div>
+                            </div>
+                            <div class="rounded-2xl bg-white/10 ring-1 ring-white/15 p-4 text-center">
+                                <div class="text-xs text-white/70">Región</div>
+                                <div class="text-base font-extrabold text-white">Puno</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </header>
+
+
+    <!-- PONENTES -->
+    <!-- PONENTES (5) - 3 arriba / 2 centrados abajo en pantallas grandes -->
+    <section id="especialistas" class="py-16 sm:py-20 bg-slate-50">
+        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div class="text-center reveal">
+                <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900">PONENTES</h2>
+                <p class="mt-2 text-slate-600 font-body">
+                    Especialistas invitados con trayectoria académica y experiencia en docencia e investigación.
+                </p>
+                <div class="mt-6 flex justify-center items-center gap-4 text-slate-300">
+                    <div class="h-1 w-16 rounded bg-slate-200"></div>
+                    <i class="fa-solid fa-users text-slate-500"></i>
+                    <div class="h-1 w-16 rounded bg-slate-200"></div>
+                </div>
+            </div>
+
+            <!-- GRID:
+      - móvil: 1 columna
+      - tablet: 2 columnas
+      - desktop: 6 columnas (cada card ocupa 2) => 3 cards por fila
+      - 2da fila (2 cards) centradas con col-start
+    -->
+            <div class="mt-10 grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-6">
+
+                <!-- CARD 1 -->
+                <article
+                    class="reveal rounded-3xl bg-white ring-1 ring-slate-200 shadow-soft transition hover:-translate-y-1 lg:col-span-2">
+                    <div class="group relative aspect-[4/3] rounded-t-3xl overflow-hidden bg-slate-100">
+                        <!-- fondo base -->
+                        <div class="absolute inset-0 bg-gradient-to-br from-slate-100 to-slate-200"></div>
+                        <!-- degradado institucional detrás del PNG al hover -->
+                        <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition duration-300
+                   bg-[linear-gradient(135deg,_#0B2E66_0%,_#00A9C8_45%,_#041428_80%,_#00152C_100%)]"
+                            aria-hidden="true"></div>
+
+                        <!-- imagen encima (NO se tapa) -->
+                        <img src="./img/curso-taller2025/img/especialistas/processed_image_4.png"
+                            alt="Renato Mario Benazic Tomé"
+                            class="relative z-10 h-full w-full object-contain p-6 transition duration-300 group-hover:scale-[1.03]"
+                            loading="lazy" />
+                    </div>
+
+                    <div class="p-5">
+                        <h3 class="text-lg font-extrabold text-slate-900">Renato Mario Benazic Tomé</h3>
+                        <p class="mt-2 text-sm text-slate-600 font-body leading-relaxed">
+                            Doctor en Matemática (IMPA - Brasil) y Magíster en Matemática Pura (UNMSM). Investigación en
+                            ecuaciones diferenciales y modelos matemáticos aplicados.
+                        </p>
+                    </div>
+                </article>
+
+                <!-- CARD 2 -->
+                <article
+                    class="reveal rounded-3xl bg-white ring-1 ring-slate-200 shadow-soft transition hover:-translate-y-1 lg:col-span-2">
+                    <div class="group relative aspect-[4/3] rounded-t-3xl overflow-hidden bg-slate-100">
+                        <div class="absolute inset-0 bg-gradient-to-br from-slate-100 to-slate-200"></div>
+                        <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition duration-300
+                   bg-[linear-gradient(135deg,_#0B2E66_0%,_#00A9C8_45%,_#041428_80%,_#00152C_100%)]"
+                            aria-hidden="true"></div>
+
+                        <img src="./img/curso-taller2025/img/especialistas/processed_image_2.png"
+                            alt="Guissela Joanne Gonzales Fernández"
+                            class="relative z-10 h-full w-full object-contain p-6 transition duration-300 group-hover:scale-[1.03]"
+                            loading="lazy" />
+                    </div>
+
+                    <div class="p-5">
+                        <h3 class="text-lg font-extrabold text-slate-900">Guissela Joanne Gonzales Fernández</h3>
+                        <p class="mt-2 text-sm text-slate-600 font-body leading-relaxed">
+                            Magíster en Literatura Peruana y Latinoamericana (UNMSM). Investigación en estudios andinos
+                            e interculturalidad.
+                        </p>
+                    </div>
+                </article>
+
+                <!-- CARD 3 -->
+                <article
+                    class="reveal rounded-3xl bg-white ring-1 ring-slate-200 shadow-soft transition hover:-translate-y-1 lg:col-span-2">
+                    <div class="group relative aspect-[4/3] rounded-t-3xl overflow-hidden bg-slate-100">
+                        <div class="absolute inset-0 bg-gradient-to-br from-slate-100 to-slate-200"></div>
+                        <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition duration-300
+                   bg-[linear-gradient(135deg,_#0B2E66_0%,_#00A9C8_45%,_#041428_80%,_#00152C_100%)]"
+                            aria-hidden="true"></div>
+
+                        <img src="./img/curso-taller2025/img/especialistas/processed_image_1.png"
+                            alt="David Víctor Velásquez Silva"
+                            class="relative z-10 h-full w-full object-contain p-6 transition duration-300 group-hover:scale-[1.03]"
+                            loading="lazy" />
+                    </div>
+
+                    <div class="p-5">
+                        <h3 class="text-lg font-extrabold text-slate-900">David Víctor Velásquez Silva</h3>
+                        <p class="mt-2 text-sm text-slate-600 font-body leading-relaxed">
+                            Magíster y Licenciado en Historia (UNMSM). Enfoque en historia política peruana del siglo
+                            XIX y Estado peruano.
+                        </p>
+                    </div>
+                </article>
+
+                <!-- CARD 4 (CENTRADA: ocupa cols 2-3 de la grilla de 6) -->
+                <article
+                    class="reveal rounded-3xl bg-white ring-1 ring-slate-200 shadow-soft transition hover:-translate-y-1 lg:col-span-2 lg:col-start-2">
+                    <div class="group relative aspect-[4/3] rounded-t-3xl overflow-hidden bg-slate-100">
+                        <div class="absolute inset-0 bg-gradient-to-br from-slate-100 to-slate-200"></div>
+                        <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition duration-300
+                   bg-[linear-gradient(135deg,_#0B2E66_0%,_#00A9C8_45%,_#041428_80%,_#00152C_100%)]"
+                            aria-hidden="true"></div>
+
+                        <img src="./img/curso-taller2025/img/especialistas/processed_image_3.png"
+                            alt="Melchor Nicolás Llosa Demartini"
+                            class="relative z-10 h-full w-full object-contain p-6 transition duration-300 group-hover:scale-[1.03]"
+                            loading="lazy" />
+                    </div>
+
+                    <div class="p-5">
+                        <h3 class="text-lg font-extrabold text-slate-900">Melchor Nicolás Llosa Demartini</h3>
+                        <p class="mt-2 text-sm text-slate-600 font-body leading-relaxed">
+                            Investigador en ciencias físicas y docente universitario en la Universidad Nacional Mayor de
+                            San Marcos (UNMSM)
+                        </p>
+                    </div>
+                </article>
+
+                <!-- CARD 5 (CENTRADA: ocupa cols 4-5 de la grilla de 6) -->
+                <article
+                    class="reveal rounded-3xl bg-white ring-1 ring-slate-200 shadow-soft transition hover:-translate-y-1 lg:col-span-2 lg:col-start-4">
+                    <div class="group relative aspect-[4/3] rounded-t-3xl overflow-hidden bg-slate-100">
+                        <div class="absolute inset-0 bg-gradient-to-br from-slate-100 to-slate-200"></div>
+                        <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition duration-300
+                   bg-[linear-gradient(135deg,_#0B2E66_0%,_#00A9C8_45%,_#041428_80%,_#00152C_100%)]"
+                            aria-hidden="true"></div>
+
+                        <img src="./img/curso-taller2025/img/especialistas/processed_image_5.png" alt="Ponente 5"
+                            class="relative z-10 h-full w-full object-contain p-6 transition duration-300 group-hover:scale-[1.03]"
+                            loading="lazy" />
+                    </div>
+
+                    <div class="p-5">
+                        <h3 class="text-lg font-extrabold text-slate-900">Diana Valery Yupanqui Valderrama</h3>
+                        <p class="mt-2 text-sm text-slate-600 font-body leading-relaxed">
+                            Profesional en educación con formación de maestría en currículo y docente investigadora en
+                            la Pontificia Universidad Católica del Perú (PUCP), con aportes al estudio y análisis
+                            educativo.
+                        </p>
+                    </div>
+                </article>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ACERCA DEL CURSO -->
+    <section id="about" class="relative overflow-hidden py-16 sm:py-20 text-white">
+        <div class="absolute inset-0 -z-10" style="
+          background:
+            radial-gradient(80% 60% at 20% 20%, rgba(0,169,200,.55), transparent 60%),
+            radial-gradient(70% 55% at 85% 35%, rgba(255,138,0,.28), transparent 55%),
+            linear-gradient(180deg, #0B2E66 0%, #041428 55%, #00152C 100%);
+        " aria-hidden="true"></div>
+
+        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div class="text-center reveal">
+                <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight">ACERCA DEL CURSO</h2>
+                <div class="mt-6 flex justify-center items-center gap-4 text-white/40">
+                    <div class="h-1 w-16 rounded bg-white/20"></div>
+                    <i class="fa-solid fa-circle-info text-white/70"></i>
+                    <div class="h-1 w-16 rounded bg-white/20"></div>
+                </div>
+            </div>
+
+            <div class="mt-10 grid gap-6 lg:grid-cols-12 lg:items-start">
+                <div class="reveal lg:col-span-7 rounded-3xl bg-white/8 ring-1 ring-white/15 p-6 sm:p-7 shadow-soft2">
+                    <p class="text-base sm:text-lg text-white/85 font-body leading-relaxed">
+                        El Curso Taller: “capacitación en la construcción de
+                        herramientas de evaluación de preparación pre universitaria y enseñanza-aprendizaje”
+                        es una iniciativa del Centro de Estudios Preuniversitario de la Universidad Nacional del
+                        Altiplano - CEPREUNA,
+                        dirigida a docentes de preparación preuniversitaria en Puno.
+                    </p>
+                    <p class="mt-4 text-base sm:text-lg text-white/85 font-body leading-relaxed">
+                        Fortalecer las competencias pedagógicas de los docentes mediante el uso adecuado y efectivo de
+                        herramientas de evaluación aplicadas a la preparación preuniversitaria, con el fin de mejorar
+                        los procesos de enseñanza–aprendizaje y el desempeño académico de los estudiantes.
+                    </p>
+                </div>
+
+                <div class="reveal lg:col-span-5 rounded-3xl bg-white/8 ring-1 ring-white/15 p-6 sm:p-7 shadow-soft2">
+                    <h3 class="text-lg font-extrabold">Lo que aprenderás</h3>
+                    <ul class="mt-4 space-y-3 font-body text-white/85">
+                        <li class="flex gap-3">
+                            <span class="mt-1 text-brand-sky"><i class="fa-solid fa-circle-check"></i></span>
+                            <span>Construcción de ítems por competencias y criterios de calidad.</span>
+                        </li>
+                        <li class="flex gap-3">
+                            <span class="mt-1 text-brand-sky"><i class="fa-solid fa-circle-check"></i></span>
+                            <span>Estrategias de enseñanza y evaluación enfocadas en el aprendizaje.</span>
+                        </li>
+                        <li class="flex gap-3">
+                            <span class="mt-1 text-brand-sky"><i class="fa-solid fa-circle-check"></i></span>
+                            <span>Actualización del enfoque de evaluación por competencias y práctica docente.</span>
+                        </li>
+                        <li class="flex gap-3">
+                            <span class="mt-1 text-brand-sky"><i class="fa-solid fa-circle-check"></i></span>
+                            <span>Herramientas para optimizar procesos de preparación preuniversitaria.</span>
+                        </li>
+                    </ul>
+
+                    <div class="mt-6 rounded-2xl bg-white/10 ring-1 ring-white/15 p-4 text-sm text-white/80 font-body">
+                        <span class="font-bold text-white">Nota:</span> En una capacitación de dos días, profundizarás
+                        en estrategias y evaluación por competencias para mejorar tu práctica docente.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- INSCRIPCIÓN -->
+    <section id="inscribirse" class="relative overflow-hidden py-16 sm:py-20">
+        <div class="absolute inset-0 -z-10" style="
+          background:
+            radial-gradient(75% 60% at 20% 15%, rgba(0,169,200,.45), transparent 60%),
+            radial-gradient(70% 55% at 80% 25%, rgba(255,138,0,.22), transparent 55%),
+            linear-gradient(180deg, #0B2E66 0%, #041428 55%, #00152C 100%);
+        " aria-hidden="true"></div>
+
+        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div class="text-center reveal">
+                <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight text-white">INSCRIBIRSE</h2>
+                <div class="mt-6 flex justify-center items-center gap-4 text-white/40">
+                    <div class="h-1 w-16 rounded bg-white/20"></div>
+                    <i class="fa-solid fa-clipboard-list text-white/70"></i>
+                    <div class="h-1 w-16 rounded bg-white/20"></div>
+                </div>
+            </div>
+
+            <div class="mt-10 grid gap-6 lg:grid-cols-12 lg:items-start">
+                <div class="reveal lg:col-span-5 rounded-3xl bg-white/8 ring-1 ring-white/15 p-6 shadow-soft2">
+                    <h3 class="text-lg font-extrabold text-white">Pasos</h3>
+                    <ol class="mt-4 space-y-3 text-white/85 font-body">
+                        <li class="flex gap-3">
+                            <span class="mt-1 text-brand-orange"><i class="fa-solid fa-1"></i></span>
+                            <span><strong class="text-white">Paso 1:</strong> Completa tus datos.</span>
+                        </li>
+                        <li class="flex gap-3">
+                            <span class="mt-1 text-brand-orange"><i class="fa-solid fa-2"></i></span>
+                            <span><strong class="text-white">Paso 2:</strong> Sube y valida tu voucher (popup).</span>
+                        </li>
+                        <li class="flex gap-3">
+                            <span class="mt-1 text-brand-orange"><i class="fa-solid fa-3"></i></span>
+                            <span><strong class="text-white">Paso 3:</strong> Envía tu inscripción.</span>
+                        </li>
+                    </ol>
+
+                    <div class="mt-6 rounded-2xl bg-white/10 ring-1 ring-white/15 p-4 text-sm text-white/85 font-body">
+                        <div class="font-bold text-white">Recomendación</div>
+                        <div class="mt-1">Verifica que el voucher tenga <strong class="text-white">secuencia, fecha y
+                                monto</strong> visibles antes de subirlo.</div>
+                    </div>
+                </div>
+
+                <div class="reveal lg:col-span-7">
+                    <div class="rounded-3xl bg-white/95 ring-1 ring-white/30 shadow-soft2 p-6 sm:p-8">
+                        <!-- FIX: ahora el form sí tiene id para reset -->
+                        <form id="formInscripcion" class="space-y-5" novalidate>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <div>
+                                    <label for="tipoDocumento" class="block text-sm font-bold text-slate-800">Tipo de
+                                        documento</label>
+                                    <select id="tipoDocumento"
+                                        class="mt-2 w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-800 shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-cyan"
+                                        required>
+                                        <option value="1">Documento Nacional de Identidad (DNI)</option>
+                                        <option value="2">Pasaporte</option>
+                                        <option value="3">Carné de Extranjería</option>
+                                        <option value="4">Cédula de identidad</option>
+                                    </select>
+                                </div>
+
+                                <div>
+                                    <label for="nro_documento" class="block text-sm font-bold text-slate-800">Número de
+                                        documento</label>
+                                    <input type="text" inputmode="numeric" id="nro_documento" placeholder="Ej: 12345678"
+                                        class="mt-2 w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-800 shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-cyan"
+                                        oninput="this.value = this.value.replace(/[^0-9]/g, ''); updateVoucherDNI();"
+                                        required />
+                                </div>
+                            </div>
+
+                            <div>
+                                <label for="nombres" class="block text-sm font-bold text-slate-800">Nombres</label>
+                                <input type="text" id="nombres" placeholder="Nombres"
+                                    class="mt-2 w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-800 shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-cyan"
+                                    oninput="this.value = this.value.toUpperCase();" required />
+                            </div>
+
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <div>
+                                    <label for="apellido_paterno"
+                                        class="block text-sm font-bold text-slate-800">Apellido paterno</label>
+                                    <input type="text" id="apellido_paterno" placeholder="Apellido paterno"
+                                        class="mt-2 w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-800 shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-cyan"
+                                        oninput="this.value = this.value.toUpperCase();" required />
+                                </div>
+
+                                <div>
+                                    <label for="apellido_materno"
+                                        class="block text-sm font-bold text-slate-800">Apellido materno</label>
+                                    <input type="text" id="apellido_materno" placeholder="Apellido materno"
+                                        class="mt-2 w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-800 shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-cyan"
+                                        oninput="this.value = this.value.toUpperCase();" required />
+                                </div>
+                            </div>
+
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <div>
+                                    <label for="celular" class="block text-sm font-bold text-slate-800">Número de
+                                        celular</label>
+                                    <input type="text" inputmode="numeric" id="celular" placeholder="Número de celular"
+                                        class="mt-2 w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-800 shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-cyan"
+                                        oninput="this.value = this.value.replace(/[^0-9]/g, '');" required />
+                                </div>
+
+                                <div>
+                                    <label for="email" class="block text-sm font-bold text-slate-800">Correo
+                                        electrónico</label>
+                                    <input type="email" id="email" placeholder="Correo electrónico"
+                                        class="mt-2 w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-800 shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-cyan"
+                                        required />
+                                </div>
+                            </div>
+
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <div>
+                                    <label for="condicion"
+                                        class="block text-sm font-bold text-slate-800">Condición</label>
+                                    <select id="condicion"
+                                        class="mt-2 w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-800 shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-cyan"
+                                        required>
+                                        <option value="1">UNAP</option>
+                                        <option value="2">Particular</option>
+                                    </select>
+                                </div>
+
+                                <div>
+                                    <label for="area" class="block text-sm font-bold text-slate-800">Seleccione
+                                        especialización</label>
+                                    <select id="area"
+                                        class="mt-2 w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-800 shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-cyan"
+                                        required>
+                                        <option value="1">Razonamiento Matemático, Aritmética, Álgebra, Geometría y
+                                            Trigonometría</option>
+                                        <option value="2">Razonamiento Verbal, Comunicación y Literatura</option>
+                                        <option value="3">Física, Química, Biología y Anatomía</option>
+                                        <option value="4">Geografía, Historía, Educación Cívica, Economía, Psicología y
+                                            Filosofía</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="flex flex-col sm:flex-row gap-3 sm:items-center pt-2">
+                                <button type="button" id="btnOpenVoucher"
+                                    class="inline-flex items-center justify-center gap-2 rounded-xl bg-[#00A9C8] px-5 py-3 text-sm font-extrabold text-white shadow-soft hover:brightness-110 transition focus:outline-none focus-visible:ring-2 focus-visible:ring-[#00A9C8] focus-visible:ring-offset-2 focus-visible:ring-offset-white"
+                                    onclick="openModal('voucherModal')">
+                                    <i class="fa-solid fa-upload"></i>
+                                    Subir Voucher
+                                </button>
+
+
+                                <button type="button" id="botonEnviar"
+                                    class="hidden inline-flex items-center justify-center gap-2 rounded-xl bg-brand-orange px-5 py-3 text-sm font-extrabold text-white shadow-soft hover:brightness-110 transition focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange focus-visible:ring-offset-2">
+                                    <i class="fa-solid fa-paper-plane"></i>
+                                    Enviar inscripción
+                                </button>
+                            </div>
+
+                            <section class="mt-6 hidden" id="pagos-validados" aria-live="polite">
+                                <div class="flex items-center justify-between gap-3">
+                                    <h3 class="text-lg font-extrabold text-slate-900">Pagos Validados</h3>
+                                    <span class="text-xs font-bold text-slate-500">Se habilita “Enviar” al
+                                        validar</span>
+                                </div>
+
+                                <div class="mt-3 overflow-x-auto rounded-2xl border border-slate-200">
+                                    <table class="min-w-[640px] w-full border-collapse">
+                                        <thead class="bg-slate-50 text-slate-700">
+                                            <tr>
+                                                <th
+                                                    class="p-3 text-left text-xs font-extrabold uppercase tracking-wide">
+                                                    #</th>
+                                                <th
+                                                    class="p-3 text-left text-xs font-extrabold uppercase tracking-wide">
+                                                    Fecha</th>
+                                                <th
+                                                    class="p-3 text-left text-xs font-extrabold uppercase tracking-wide">
+                                                    Monto</th>
+                                                <th
+                                                    class="p-3 text-left text-xs font-extrabold uppercase tracking-wide">
+                                                    Secuencia</th>
+                                                <th
+                                                    class="p-3 text-left text-xs font-extrabold uppercase tracking-wide">
+                                                    Estado</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="listaPagos" class="divide-y divide-slate-200"></tbody>
+                                    </table>
+                                </div>
+                            </section>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- MODAL VOUCHER (mantiene imagen de ejemplo y flujo original) -->
+        <!-- MODAL VOUCHER (scroll interno + footer fijo) -->
+        <div id="voucherModal" class="fixed inset-0 hidden z-50 bg-black/60 p-3 sm:p-4 overflow-y-auto" role="dialog"
+            aria-modal="true" aria-labelledby="voucherTitle" aria-hidden="true" onclick="closeModal('voucherModal')">
+            <!-- Centrado + padding seguro -->
+            <div class="mx-auto w-full max-w-4xl" onclick="event.stopPropagation()">
+                <div
+                    class="w-full rounded-3xl bg-white shadow-soft2 ring-1 ring-black/10 overflow-hidden flex flex-col max-h-[90vh]">
+                    <!-- Header -->
+                    <div
+                        class="flex items-center justify-between px-5 sm:px-6 py-4 border-b border-slate-200 flex-none">
+                        <div class="flex items-center gap-2">
+                            <div class="text-[#00A9C8]"><i class="fa-solid fa-receipt"></i></div>
+                            <h2 id="voucherTitle" class="text-base sm:text-lg font-extrabold text-slate-900">Subir
+                                Voucher</h2>
+                        </div>
+
+                        <button type="button" class="rounded-xl border border-slate-200 bg-white px-3 py-2 text-slate-700 hover:bg-slate-50 transition
+                 focus:outline-none focus-visible:ring-4 focus-visible:ring-[#00A9C8]/25"
+                            onclick="closeModal('voucherModal')">
+                            <span class="sr-only">Cerrar</span>
+                            <i class="fa-solid fa-xmark"></i>
+                        </button>
+                    </div>
+
+                    <!-- Body scrolleable -->
+                    <div class="flex-1 overflow-y-auto p-5 sm:p-6">
+                        <div class="grid gap-6 lg:grid-cols-2">
+                            <!-- Col izquierda: ejemplo -->
+                            <div>
+                                <label class="block text-sm font-extrabold text-slate-900">Ejemplo de voucher</label>
+
+                                <div class="mt-3 rounded-2xl border border-slate-200 overflow-hidden bg-slate-50">
+                                    <img id="voucherImageVoucher" class="w-full h-auto"
+                                        src="https://sistemas.cepreuna.edu.pe/images/voucher.jpg"
+                                        alt="Ejemplo de voucher (Ventanilla BN)" loading="lazy" />
+                                    <img id="voucherImagePagalo" class="w-full h-auto hidden"
+                                        src="https://sistemas.cepreuna.edu.pe/images/pagalo.jpg"
+                                        alt="Ejemplo de voucher (Pagalo.pe)" loading="lazy" />
+                                </div>
+
+                                <p class="mt-3 text-sm text-slate-600 font-body">
+                                    Completa los datos del voucher y adjunta una imagen o PDF. Luego presiona
+                                    <strong>Validar</strong>.
+                                </p>
+                            </div>
+
+                            <!-- Col derecha: formulario -->
+                            <div>
+                                <div class="grid gap-4">
+                                    <div>
+                                        <label for="selectPago" class="block text-sm font-extrabold text-slate-900">Tipo
+                                            de pago</label>
+                                        <select id="selectPago"
+                                            class="mt-2 w-full appearance-none rounded-2xl border border-slate-200 bg-white px-4 py-3 pr-10 text-sm font-semibold text-slate-900 shadow-sm
+                         transition hover:border-slate-300
+                         focus:outline-none focus-visible:ring-4 focus-visible:ring-[#00A9C8]/25 focus-visible:border-[#00A9C8]">
+                                            <option value="1">Ventanilla BN</option>
+                                            <option value="2">Pagalo.pe</option>
+                                        </select>
+                                    </div>
+
+                                    <div>
+                                        <label for="documento"
+                                            class="block text-sm font-extrabold text-slate-900">Documento</label>
+                                        <input type="text" inputmode="numeric" id="documento"
+                                            placeholder="Se completa automáticamente" class="mt-2 w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm font-semibold text-slate-900 shadow-sm
+                         disabled:opacity-70 disabled:cursor-not-allowed
+                         focus:outline-none focus-visible:ring-4 focus-visible:ring-[#00A9C8]/25" disabled />
+                                    </div>
+
+                                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                        <div>
+                                            <label for="secuencia"
+                                                class="block text-sm font-extrabold text-slate-900">Secuencia</label>
+                                            <input type="text" inputmode="numeric" id="secuencia"
+                                                placeholder="Secuencia"
+                                                class="mt-2 w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm font-semibold text-slate-900 shadow-sm
+                           focus:outline-none focus-visible:ring-4 focus-visible:ring-[#00A9C8]/25 focus-visible:border-[#00A9C8]"
+                                                oninput="this.value = this.value.replace(/[^0-9]/g, '')" />
+                                        </div>
+
+                                        <div>
+                                            <label for="fecha"
+                                                class="block text-sm font-extrabold text-slate-900">Fecha</label>
+                                            <input type="date" id="fecha"
+                                                class="mt-2 w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm font-semibold text-slate-900 shadow-sm
+                           focus:outline-none focus-visible:ring-4 focus-visible:ring-[#00A9C8]/25 focus-visible:border-[#00A9C8]" />
+                                        </div>
+                                    </div>
+
+                                    <div>
+                                        <label for="monto"
+                                            class="block text-sm font-extrabold text-slate-900">Monto</label>
+                                        <input type="text" id="monto" placeholder="Ej: 41.00"
+                                            class="mt-2 w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm font-semibold text-slate-900 shadow-sm
+                         focus:outline-none focus-visible:ring-4 focus-visible:ring-[#00A9C8]/25 focus-visible:border-[#00A9C8]" />
+                                    </div>
+
+                                    <div>
+                                        <label for="file" class="block text-sm font-extrabold text-slate-900">Adjuntar
+                                            archivo</label>
+                                        <input type="file" id="file" class="mt-2 block w-full text-sm text-slate-800 file:mr-3 file:rounded-xl file:border-0 file:bg-slate-900 file:px-4 file:py-2 file:text-sm file:font-bold file:text-white hover:file:bg-slate-800
+                         cursor-pointer rounded-2xl border border-slate-200 bg-white px-3 py-2
+                         focus:outline-none focus-visible:ring-4 focus-visible:ring-[#00A9C8]/25"
+                                            accept=".png, .jpg, .jpeg, .pdf" onchange="previewFile()" />
+
+                                        <!-- ✅ Preview “encapsulado” para que NO rompa el modal -->
+                                        <div id="filePreview"
+                                            class="mt-3 hidden max-h-64 overflow-auto rounded-2xl border border-slate-200 bg-slate-50 p-2">
+                                        </div>
+                                    </div>
+
+                                    <p class="text-xs text-slate-500 font-body">
+                                        Si cambias tu DNI, el documento del voucher se actualiza automáticamente.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Footer fijo (siempre visible) -->
+                    <div class="flex-none border-t border-slate-200 bg-white px-5 sm:px-6 py-4">
+                        <div class="flex flex-col sm:flex-row gap-3 sm:justify-end">
+                            <button id="btnValidarVoucher" type="button" class="inline-flex items-center justify-center gap-2 rounded-xl bg-[#00A9C8] px-5 py-3 text-sm font-extrabold text-white shadow-soft
+                   hover:brightness-110 transition
+                   focus:outline-none focus-visible:ring-4 focus-visible:ring-[#00A9C8]/25">
+                                <i class="fa-solid fa-shield-check"></i>
+                                Validar
+                            </button>
+
+                            <button id="btnCerrarVoucher" type="button" class="inline-flex items-center justify-center gap-2 rounded-xl bg-slate-900 px-5 py-3 text-sm font-extrabold text-white shadow-soft
+                   hover:bg-slate-800 transition
+                   focus:outline-none focus-visible:ring-4 focus-visible:ring-slate-900/25"
+                                onclick="closeModal('voucherModal')">
+                                <i class="fa-solid fa-xmark"></i>
+                                Cerrar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-slate-900 text-white">
+        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12">
+            <div class="grid gap-8 md:grid-cols-3">
+                <div>
+                    <h4 class="text-lg font-extrabold">Dirección</h4>
+                    <p class="mt-3 text-white/80 font-body">
+                        Jr. Acora N° 235<br />
+                        Puno, Perú
+                    </p>
+                </div>
+
+                <div>
+                    <h4 class="text-lg font-extrabold">Redes Sociales</h4>
+                    <div class="mt-3 flex flex-wrap gap-3">
+                        <a class="inline-flex items-center gap-2 rounded-xl bg-white/10 px-4 py-2 text-sm font-bold text-white hover:bg-white/15 transition focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-cyan"
+                            href="https://www.facebook.com/cepreunapuno">
+                            <i class="fab fa-facebook-f"></i> Facebook
+                        </a>
+                        <a class="inline-flex items-center gap-2 rounded-xl bg-white/10 px-4 py-2 text-sm font-bold text-white hover:bg-white/15 transition focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-cyan"
+                            href="https://www.tiktok.com/@cepreuna_puno">
+                            <i class="fab fa-tiktok"></i> TikTok
+                        </a>
+                        <a class="inline-flex items-center gap-2 rounded-xl bg-white/10 px-4 py-2 text-sm font-bold text-white hover:bg-white/15 transition focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-cyan"
+                            href="https://api.whatsapp.com/send?phone=51930500486">
+                            <i class="fab fa-whatsapp"></i> WhatsApp
+                        </a>
+                        <a class="inline-flex items-center gap-2 rounded-xl bg-white/10 px-4 py-2 text-sm font-bold text-white hover:bg-white/15 transition focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-cyan"
+                            href="https://cepreuna.edu.pe/">
+                            <i class="fa-solid fa-globe"></i> Web
+                        </a>
+                    </div>
+                </div>
+
+                <div>
+                    <h4 class="text-lg font-extrabold">Acerca del CEPREUNA</h4>
+                    <p class="mt-3 text-white/80 font-body">
+                        CEPREUNA es el Centro de Estudios Preuniversitarios de la Universidad Nacional del Altiplano,
+                        brindando preparación preuniversitaria a jóvenes de Puno y otras regiones.
+                    </p>
+                </div>
+            </div>
+
+            <div class="mt-10 border-t border-white/10 pt-6 text-center text-sm text-white/70 font-body">
+                <small>Copyright &copy; CEPREUNA 2026</small>
+            </div>
+        </div>
+    </footer>
+
+    <!-- SCRIPTS -->
+    <script>
+        // Toastr defaults (suave)
+        toastr.options = {
+            closeButton: true,
+            progressBar: true,
+            positionClass: "toast-top-right",
+            timeOut: 3500
+        };
+
+        (function () {
+            const elStatus = document.getElementById("cdStatus");
+            const elDays = document.getElementById("cdDays");
+            const elHours = document.getElementById("cdHours");
+            const elMins = document.getElementById("cdMins");
+            const elSecs = document.getElementById("cdSecs");
+            const elGrid = document.getElementById("cdGrid");
+            const elDone = document.getElementById("cdDone");
+
+            if (!elStatus || !elDays || !elHours || !elMins || !elSecs || !elGrid || !elDone) return;
+
+            // Fechas en hora Perú (UTC-05:00)
+            const start = new Date("2026-02-20T09:00:00-05:00");
+            const end = new Date("2026-02-21T13:00:00-05:00");
+
+            const pad2 = (n) => String(n).padStart(2, "0");
+
+            function renderDiff(ms) {
+                const totalSeconds = Math.max(0, Math.floor(ms / 1000));
+                const days = Math.floor(totalSeconds / 86400);
+                const hours = Math.floor((totalSeconds % 86400) / 3600);
+                const mins = Math.floor((totalSeconds % 3600) / 60);
+                const secs = totalSeconds % 60;
+
+                elDays.textContent = pad2(days);
+                elHours.textContent = pad2(hours);
+                elMins.textContent = pad2(mins);
+                elSecs.textContent = pad2(secs);
+            }
+
+            function tick() {
+                const now = new Date();
+
+                if (now < start) {
+                    elStatus.textContent = "Inicia en:";
+                    elDone.classList.add("hidden");
+                    elGrid.classList.remove("hidden");
+                    renderDiff(start - now);
+                    return;
+                }
+
+                if (now >= start && now < end) {
+                    elStatus.textContent = "Curso iniciado · Finaliza en";
+                    elDone.classList.add("hidden");
+                    elGrid.classList.remove("hidden");
+                    renderDiff(end - now);
+                    return;
+                }
+
+                // now >= end
+                elStatus.textContent = "Curso finalizado";
+                elGrid.classList.add("hidden");
+                elDone.classList.remove("hidden");
+                renderDiff(0);
+                clearInterval(timer);
+            }
+
+            tick();
+            const timer = setInterval(tick, 1000);
+        })();
+
+
+        // Mobile menu toggle
+        (function () {
+            const btn = document.getElementById("menu-toggle");
+            const menu = document.getElementById("nav-menu");
+            if (!btn || !menu) return;
+
+            btn.addEventListener("click", () => {
+                const expanded = btn.getAttribute("aria-expanded") === "true";
+                btn.setAttribute("aria-expanded", String(!expanded));
+                menu.classList.toggle("hidden");
+            });
+
+            // cerrar al hacer click en link (mobile)
+            menu.querySelectorAll("a[href^='#']").forEach((a) => {
+                a.addEventListener("click", () => {
+                    menu.classList.add("hidden");
+                    btn.setAttribute("aria-expanded", "false");
+                });
+            });
+        })();
+
+        (function () {
+            const selectPago = document.getElementById("selectPago");
+            const imgVoucher = document.getElementById("voucherImageVoucher");
+            const imgPagalo = document.getElementById("voucherImagePagalo");
+
+            if (!selectPago || !imgVoucher || !imgPagalo) return;
+
+            function syncPagoImage() {
+                const isPagalo = selectPago.value === "2";
+                imgVoucher.classList.toggle("hidden", isPagalo);
+                imgPagalo.classList.toggle("hidden", !isPagalo);
+            }
+
+            // Estado inicial
+            syncPagoImage();
+
+            // Cambio al seleccionar
+            selectPago.addEventListener("change", syncPagoImage);
+        })();
+
+        // Scroll spy + active link
+        (function () {
+            const links = Array.from(document.querySelectorAll("a.nav-link[data-nav]"));
+            const sections = links
+                .map((a) => document.getElementById(a.dataset.nav))
+                .filter(Boolean);
+
+            if (!("IntersectionObserver" in window) || sections.length === 0) return;
+
+            const setActive = (id) => {
+                links.forEach((a) => {
+                    const active = a.dataset.nav === id;
+                    a.classList.toggle("text-brand-cyan", active);
+                    a.classList.toggle("bg-slate-50", active);
+                });
+            };
+
+            const io = new IntersectionObserver(
+                (entries) => {
+                    const visible = entries.filter((e) => e.isIntersecting).sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+                    if (visible?.target?.id) setActive(visible.target.id);
+                },
+                { rootMargin: "-35% 0px -55% 0px", threshold: [0.1, 0.2, 0.35] }
+            );
+
+            sections.forEach((s) => io.observe(s));
+        })();
+
+        // Reveal on scroll
+        (function () {
+            const els = document.querySelectorAll(".reveal");
+            if (!("IntersectionObserver" in window) || els.length === 0) {
+                els.forEach((el) => el.classList.add("is-visible"));
+                return;
+            }
+
+            const io = new IntersectionObserver(
+                (entries) => {
+                    entries.forEach((e) => {
+                        if (e.isIntersecting) {
+                            e.target.classList.add("is-visible");
+                            io.unobserve(e.target);
+                        }
+                    });
+                },
+                { threshold: 0.12 }
+            );
+
+            els.forEach((el) => io.observe(el));
+        })();
+
+        // Estado de pagos
+        let pagosValidados = [];
+
+        // Modal helpers (manteniendo la idea original, pero más accesible)
+        let lastFocus = null;
+        function openModal(id) {
+            const modal = document.getElementById(id);
+            if (!modal) return;
+
+            lastFocus = document.activeElement;
+            modal.classList.remove("hidden");
+            modal.classList.add("flex");
+            modal.setAttribute("aria-hidden", "false");
+
+            // foco al primer campo útil
+            setTimeout(() => {
+                const focusable = modal.querySelector("#selectPago, button, input, select, textarea, a[href]");
+                focusable && focusable.focus();
+            }, 0);
+        }
+
+        function closeModal(id) {
+            const modal = document.getElementById(id);
+            if (!modal) return;
+
+            modal.classList.add("hidden");
+            modal.classList.remove("flex");
+            modal.setAttribute("aria-hidden", "true");
+
+            // volver al botón que abrió
+            if (lastFocus && typeof lastFocus.focus === "function") lastFocus.focus();
+        }
+
+        // ESC para cerrar modal
+        document.addEventListener("keydown", (e) => {
+            if (e.key === "Escape") {
+                const modal = document.getElementById("voucherModal");
+                if (modal && !modal.classList.contains("hidden")) closeModal("voucherModal");
+            }
+        });
+
+        function updateVoucherDNI() {
+            const dniValue = document.getElementById("nro_documento")?.value || "";
+            const doc = document.getElementById("documento");
+            if (doc) doc.value = dniValue;
+        }
+
+        function previewFile() {
+            const fileInput = document.getElementById("file");
+            const filePreview = document.getElementById("filePreview");
+            if (!fileInput || !filePreview) return;
+
+            filePreview.innerHTML = "";
+            filePreview.classList.add("hidden");
+
+            if (!fileInput.files || fileInput.files.length === 0) return;
+
+            const file = fileInput.files[0];
+            const type = file.type || "";
+
+            filePreview.classList.remove("hidden");
+
+            if (type.includes("image")) {
+                const img = document.createElement("img");
+                img.src = URL.createObjectURL(file);
+                img.className = "w-full max-h-60 object-contain rounded-xl bg-white";
+                img.onload = () => URL.revokeObjectURL(img.src);
+                filePreview.appendChild(img);
+            } else if (type.includes("pdf")) {
+                const iframe = document.createElement("iframe");
+                iframe.src = URL.createObjectURL(file);
+                iframe.className = "w-full h-60 rounded-xl bg-white";
+                filePreview.appendChild(iframe);
+            } else {
+                filePreview.innerHTML = "<p class='text-red-600 text-sm font-bold p-2'>Formato no soportado</p>";
+            }
+        }
+
+        function actualizarListaPagos() {
+            const listaPagos = document.getElementById("listaPagos");
+            if (!listaPagos) return;
+
+            listaPagos.innerHTML = "";
+            pagosValidados.forEach((pago, index) => {
+                const tr = document.createElement("tr");
+                tr.className = "hover:bg-slate-50";
+                tr.innerHTML = `
+            <td class="p-3 text-sm text-slate-700">${index + 1}</td>
+            <td class="p-3 text-sm text-slate-700">${pago.fecha || "-"}</td>
+            <td class="p-3 text-sm text-slate-700">${pago.monto || "-"}</td>
+            <td class="p-3 text-sm text-slate-700">${pago.secuencia || "-"}</td>
+            <td class="p-3 text-sm font-extrabold text-emerald-600">Validado</td>
+          `;
+                listaPagos.appendChild(tr);
+            });
+        }
+
+        // Validar voucher (FIX: id único btnValidarVoucher)
+        document.getElementById("btnValidarVoucher")?.addEventListener("click", async () => {
+            const secuenciaInput = document.getElementById("secuencia");
+            const montoInput = document.getElementById("monto");
+            const selectPago = document.getElementById("selectPago");
+            const fechaInput = document.getElementById("fecha");
+            const fileInput = document.getElementById("file");
+            const documentoInput = document.getElementById("documento");
+
+            // Validación básica
+            if (!documentoInput?.value) return toastr.error("Ingresa tu número de documento primero.", "Falta dato");
+            if (!secuenciaInput?.value) return toastr.error("Ingresa la secuencia del voucher.", "Falta dato");
+            if (!fechaInput?.value) return toastr.error("Selecciona la fecha del voucher.", "Falta dato");
+            if (!montoInput?.value) return toastr.error("Ingresa el monto del voucher.", "Falta dato");
+            if (!fileInput?.files || fileInput.files.length === 0) return toastr.error("Adjunta el archivo del voucher (imagen o PDF).", "Falta archivo");
+
+            const formData = new FormData();
+            formData.append("secuencia", secuenciaInput.value);
+            formData.append("monto", montoInput.value);
+            formData.append("fecha", fechaInput.value);
+            formData.append("file", fileInput.files[0]);
+            formData.append("documento", documentoInput.value);
+
+            if (selectPago?.value === "2") {
+                formData.append("pagarEnPagalo", true);
+            }
+
+            try {
+                const response = await fetch("https://sistemas.cepreuna.edu.pe/api/pagos/validar-pago-curso", {
+                    method: "POST",
+                    body: formData
+                });
+
+                const result = await response.json();
+
+                if (result.status) {
+                    toastr.success(result.message, "Éxito");
+
+                    pagosValidados.push({
+                        fecha: result.fecha,
+                        monto: result.monto,
+                        secuencia: result.secuencia,
+                        token: result.token
+                    });
+
+                    actualizarListaPagos();
+
+                    document.getElementById("pagos-validados")?.classList.remove("hidden");
+                    document.getElementById("botonEnviar")?.classList.remove("hidden");
+
+                    // limpiar modal
+                    closeModal("voucherModal");
+                    document.getElementById("filePreview").innerHTML = "";
+                    document.getElementById("file").value = "";
+                    document.getElementById("secuencia").value = "";
+                    document.getElementById("fecha").value = "";
+                    document.getElementById("monto").value = "";
+                } else {
+                    toastr.error(result.message, "Error");
+                }
+            } catch (error) {
+                toastr.error("Ocurrió un error al procesar la solicitud.", "Error");
+            }
+        });
+
+        // Enviar inscripción (mantiene endpoint y tokens[])
+        document.getElementById("botonEnviar")?.addEventListener("click", async () => {
+            const form = document.getElementById("formInscripcion");
+
+            // Validación rápida
+            const requiredIds = ["nro_documento", "nombres", "apellido_paterno", "apellido_materno", "celular", "email", "area", "condicion"];
+            for (const id of requiredIds) {
+                const el = document.getElementById(id);
+                if (!el || !String(el.value || "").trim()) {
+                    toastr.error("Completa todos los campos requeridos.", "Faltan datos");
+                    el?.focus?.();
+                    return;
+                }
+            }
+
+            let formData = new FormData();
+            let tokens = [];
+
+            for (let option of pagosValidados) {
+                tokens.push(option.token);
+                formData.append("tokens[]", option.token);
+            }
+            if (tokens.length === 0) formData.append("tokens", "");
+
+            // Mantengo los mismos campos (pero ahora por id, más robusto)
+            formData.append("nombre", document.getElementById("nombres").value);
+            formData.append("paterno", document.getElementById("apellido_paterno").value);
+            formData.append("materno", document.getElementById("apellido_materno").value);
+            formData.append("documento", document.getElementById("nro_documento").value);
+            formData.append("correo", document.getElementById("email").value);
+            formData.append("celular", document.getElementById("celular").value);
+            formData.append("area", document.getElementById("area").value);
+            formData.append("condicion", document.getElementById("condicion").value);
+
+            try {
+                const response = await fetch("https://sistemas.cepreuna.edu.pe/api/v1/inscripcion/curso-taller", {
+                    method: "POST",
+                    body: formData
+                });
+
+                const result = await response.json();
+
+                if (response.ok) {
+                    toastr.success(result.message || "Inscripción realizada con éxito.", "Éxito");
+                    if (result.url) window.location.replace(result.url);
+
+                    form?.reset?.();
+                    pagosValidados = [];
+                    document.getElementById("pagos-validados")?.classList.add("hidden");
+                    document.getElementById("botonEnviar")?.classList.add("hidden");
+                    document.getElementById("listaPagos").innerHTML = "";
+                    updateVoucherDNI();
+                } else {
+                    toastr.error(result.message || "Hubo un error al inscribirse.", "Error");
+                }
+            } catch (error) {
+                toastr.error("Ocurrió un error al enviar la inscripción.", "Error");
+            }
+        });
+    </script>
+
+    <!-- RESUMEN (breve) -->
+    <!--
+      - Arreglé favicon: ahora usa href (antes src).
+      - Navbar sticky con blur + menú móvil real (ids coherentes) + cierre al click.
+      - Degradados reforzados (sin transparencia “lavada”).
+      - Cards de ponentes en grid responsive + hover premium + scroll reveal.
+      - Sección “Acerca” con mejor legibilidad y bullets con íconos.
+      - Form más moderno y accesible; mantiene flujo: Subir voucher (popup) -> Validar -> Enviar.
+      - Modal voucher conservado (incluye imagen ejemplo) + ids únicos + ESC para cerrar + mejor UI.
+      - Tabla pagos validos mejor en móvil (scroll horizontal).
+      - Fix bugs: validateButton duplicado, formInscripcion inexistente, cierres extra, clases contradictorias.
+    -->
+</body>
+
+</html>
