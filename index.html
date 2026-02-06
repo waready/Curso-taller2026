@@ -105,13 +105,16 @@
         class="sticky top-0 z-50 border-b border-slate-200/70 bg-white/85 backdrop-blur supports-[backdrop-filter]:bg-white/70">
         <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div class="flex h-16 items-center justify-between">
-                <a href="#page-top"
-                    class="flex items-center gap-3 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-cyan focus-visible:ring-offset-2 rounded-lg">
-                    <img src="./img/curso-taller2025/img/logo-cepreuna2025.png" class="h-10 w-10 object-contain"
-                        alt="Logo CEPREUNA" />
+                <a href="#page-top" class="flex items-center gap-3 rounded-xl px-2 py-1
+         focus:outline-none focus-visible:ring-2 focus-visible:ring-[#00A9C8] focus-visible:ring-offset-2">
+                    <span class="relative flex h-12 w-12 sm:h-14 sm:w-14 items-center justify-center">
+                        <img src="./img/curso-taller2025/img/logo-nuevo.png"
+                            class="h-10 w-10 sm:h-12 sm:w-12 object-contain" alt="Logo CEPREUNA" loading="lazy" />
+                    </span>
+
                     <div class="leading-tight">
-                        <div class="text-base font-bold text-slate-900">CEPREUNA</div>
-                        <div class="text-sm text-slate-600">Curso</div>
+                        <div class="text-lg sm:text-xl font-extrabold text-slate-900 tracking-tight">CEPREUNA</div>
+                        <div class="text-sm sm:text-base text-slate-600 font-medium">Curso Taller</div>
                     </div>
                 </a>
 
@@ -322,28 +325,26 @@
                 <div class="lg:col-span-5">
                     <!-- ✅ Un poquito más grande (tipografía + presencia), sin crecer mucho en alto -->
                     <div class="rounded-3xl bg-white/10 ring-1 ring-white/20 p-5 sm:p-6 shadow-soft2">
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 items-center">
-                            <div class="flex items-center gap-3">
-                                <img src="./img/curso-taller2025/img/Logo_UNAP.png" alt="Logo UNAP"
-                                    class="h-14 w-14 object-contain reduce-motion animate-floaty" />
-                                <div class="text-white">
-                                    <div class="text-sm font-semibold text-white/80">Universidad Nacional del Altiplano
-                                    </div>
-                                    <div class="text-lg font-extrabold leading-none">UNAP</div>
+                        <!-- Logo único -->
+                        <div class="flex items-center justify-center">
+                            <div class="relative w-full max-w-[300px] sm:max-w-[360px] lg:max-w-[400px]">
+                                <!-- halo -->
+                                <div class="absolute inset-0 -z-10 rounded-3xl blur-2xl"
+                                    style="background: radial-gradient(60% 60% at 50% 40%, rgba(0,169,200,.35), rgba(255,138,0,.18), transparent 70%);">
                                 </div>
-                            </div>
 
-                            <div class="flex items-center gap-3">
-                                <img src="./img/curso-taller2025/img/logo-white-cepre2025.png" alt="Logo CEPREUNA"
-                                    class="h-12 w-auto object-contain reduce-motion animate-floaty" />
-                                <div class="text-white">
-                                    <div class="text-sm font-semibold text-white/80">Centro Preuniversitario</div>
-                                    <div class="text-lg font-extrabold leading-none">CEPREUNA</div>
+                                <div
+                                    class="rounded-3xl bg-white/5 ring-1 ring-white/10 p-5 sm:p-6 flex items-center justify-center">
+                                    <img src="./img/curso-taller2025/img/logo-nuevo.png" alt="Logo CEPREUNA"
+                                        class="h-36 sm:h-40 lg:h-44 w-auto object-contain reduce-motion animate-floaty"
+                                        loading="lazy" />
                                 </div>
                             </div>
                         </div>
 
-                        <div class="mt-4 rounded-2xl bg-white/10 ring-1 ring-white/15 p-4">
+
+                        <!-- Tip -->
+                        <div class="mt-5 rounded-2xl bg-white/10 ring-1 ring-white/15 p-4">
                             <div class="flex items-start gap-3">
                                 <div class="mt-1 text-[#00A9C8]"><i class="fa-solid fa-circle-info"></i></div>
                                 <div class="text-white/90 font-body text-sm sm:text-[15px] leading-relaxed">
@@ -353,6 +354,7 @@
                             </div>
                         </div>
 
+                        <!-- Chips -->
                         <div class="mt-4 grid grid-cols-2 gap-3">
                             <div class="rounded-2xl bg-white/10 ring-1 ring-white/15 p-4 text-center">
                                 <div class="text-xs text-white/70">Orientado a</div>
